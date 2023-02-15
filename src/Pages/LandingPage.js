@@ -199,15 +199,18 @@ function LandingPage() {
             <img src={topMovieList[number].image} className="w-full h-full" />
           </div> */}
           {/* <div className="flex flex-row gap-1 justify-center">
-            {topMovieList.map((_id, index) => {
+            
+            <div></div>
+          </div> */}
+          <div className="flex flex-row absolute justify-center w-full gap-2 bottom-2 z-50">
+          {topMovieList.map((_id, index) => {
               return index !== number ? (
-                <RiIcons.RiCheckboxBlankCircleLine className="text-customYellow" />
+                <RiIcons.RiCheckboxBlankCircleLine className="text-white" />
               ) : (
                 <RiIcons.RiCheckboxBlankCircleFill className="text-customYellow" />
               );
             })}
-            <div></div>
-          </div> */}
+          </div>
         </div>
       ) : (
         <div>loading</div>
