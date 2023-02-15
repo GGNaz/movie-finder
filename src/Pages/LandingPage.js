@@ -2,33 +2,34 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Carousel } from "react-carousel-minimal";
 import * as RiIcons from "react-icons/ri";
+import logo from "../Assets/logo.png"
 
 function LandingPage() {
   const data = [
     {
       image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/GoldenGateBridge-001.jpg/1200px-GoldenGateBridge-001.jpg",
-      caption: "San Francisco",
+        "https://c4.wallpaperflare.com/wallpaper/857/67/782/spider-man-homecoming-2017-wallpaper-preview.jpg",
+      caption: "Spiderman",
     },
     {
       image:
-        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
-      caption: "Scotland",
+        "https://c4.wallpaperflare.com/wallpaper/232/717/114/venom-movie-venom-superheroes-hd-wallpaper-preview.jpg",
+      caption: "Venom",
     },
     {
       image:
-        "https://static2.tripoto.com/media/filter/tst/img/735873/TripDocument/1537686560_1537686557954.jpg",
-      caption: "Darjeeling",
+        "https://c4.wallpaperflare.com/wallpaper/999/730/463/yellow-fiction-cap-pikachu-detective-hd-wallpaper-preview.jpg",
+      caption: "Pokémon Detective Pikachu",
     },
     {
       image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1200px-Palace_of_Fine_Arts_%2816794p%29.jpg",
-      caption: "San Francisco",
+        "https://c4.wallpaperflare.com/wallpaper/478/888/1024/keanu-reeves-john-wick-gun-movies-wallpaper-preview.jpg",
+      caption: "John Wick",
     },
     {
       image:
-        "https://i.natgeofe.com/n/f7732389-a045-402c-bf39-cb4eda39e786/scotland_travel_4x3.jpg",
-      caption: "Scotland",
+        "https://wallpapercave.com/dwp1x/wp1945913.jpg",
+      caption: "Sherlock Holmes",
     },
     {
       image:
@@ -52,21 +53,12 @@ function LandingPage() {
     },
   ];
 
-  const captionStyle = {
-    fontSize: "2em",
-    fontWeight: "bold",
-  };
-  const slideNumberStyle = {
-    fontSize: "20px",
-    fontWeight: "bold",
-  };
 
-  let topMovies = ["venom", "iron man", "batman", "superman"];
   const [topMovieList, setTopMovieList] = useState([]);
   console.log("topMovieList", topMovieList);
 
   useEffect(() => {
-    const getMovieList = async () => {
+    // const getMovieList = async () => {
       // await axios
       //   .all(
       //     topMovies.map((apiRoute) =>
@@ -92,10 +84,10 @@ function LandingPage() {
       // .get(``)
 
       setTopMovieList(data);
-    };
+    // };
 
-    getMovieList();
-  }, [data]);
+
+  }, []);
   const [number, setNumber] = useState(0);
   console.log("number", number);
 
@@ -153,7 +145,45 @@ function LandingPage() {
         //   className="w-full h-screen"
         // />
         <div className="flex h-screen ">
-          <div className="flex flex-col z-50 h-full">
+          <div className="flex flex-col z-50 w-full">
+
+          <div className="basis-3/5">
+          <div className="flex flex-row w-full justify-between z-50 h-20">
+            <div className="flex flex-row justify-center gap-4 text-white items-center">
+              <img src={logo} className="h-16 w-12" alt="logo" />
+              <div>TOP CAST</div>
+              <div>PHOTOS</div>
+              <div>VIDEOS</div>
+              <div>SIMILAR MOVIES</div>
+              </div>
+              <div className="flex flex-row gap-2 px-4 justify-center items-center text-white">
+                <div>Login</div>
+                <div>/</div>
+                <div>Sign in</div>
+              </div>
+          </div>
+          </div>
+          <div className="basis-2/5  px-10">
+            <div className="flex">
+              <div className="basis-2/4 flex flex-col gap-2">
+              <div className="text-[#B1060F] font-extrabold text-6xl">
+              {topMovieList[number]?.caption}
+              </div>
+              <div className="flex flex-row justify-between">
+              <div className="text-white flex flex-row gap-1 items-center"><RiIcons.RiStarFill className="text-customYellow" /><span>8.9</span> <div>| 5,324</div> </div>
+              <div className="text-white flex flex-row gap-1"><span>2h 35m</span> <li/> <div>Action, Adventure, Drama</div>  <li/> <span>2021</span></div>
+              </div>
+              </div>
+              <div className="basis-2/4">
+
+              </div>
+            
+            </div>
+          
+          </div>
+
+          </div>
+          {/* <div className="flex flex-col z-50 h-full">
             <div className="basis-2/5 p-5 w-full  flex  justify-center items-center">
               <div className="text-5xl font-bold text-customYellow">
                 {topMovieList[number]?.caption}
@@ -164,7 +194,7 @@ function LandingPage() {
                 leronasdasdleronasdasdleronasdasdleronasdasdleronasdasdleronasdasd
               </div>
             </div>
-          </div>
+          </div> */}
           {/* <div className="flex justify-center h-full">
             <img src={topMovieList[number].image} className="w-full h-full" />
           </div> */}
