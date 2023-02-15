@@ -124,7 +124,7 @@ function LandingPage() {
         backgroundImage: `url(${topMovieList[number]?.image}) `,
       }}
     >
-      <div className="h-screen w-full bg-customBlack/70 absolute z-20" />
+      <div className="h-screen w-full bg-gradient-to-tr from-customBlack via-customBlack/80 to-customBlack/30 absolute z-20" />
       {topMovieList?.length > 0 ? (
         // <Carousel
         //   data={topMovieList}
@@ -152,11 +152,23 @@ function LandingPage() {
         //   // }}
         //   className="w-full h-screen"
         // />
-        <div className="flex h-screen">
+        <div className="flex h-screen ">
+          <div className="flex flex-col z-50 h-full">
+            <div className="basis-2/5 p-5 w-full  flex  justify-center items-center">
+              <div className="text-5xl font-bold text-customYellow">
+                {topMovieList[number]?.caption}
+              </div>
+            </div>
+            <div className="basis-3/5 flex  justify-center items-center">
+              <div>
+                leronasdasdleronasdasdleronasdasdleronasdasdleronasdasdleronasdasd
+              </div>
+            </div>
+          </div>
           {/* <div className="flex justify-center h-full">
             <img src={topMovieList[number].image} className="w-full h-full" />
           </div> */}
-          <div className="flex flex-row gap-1 justify-center">
+          {/* <div className="flex flex-row gap-1 justify-center">
             {topMovieList.map((_id, index) => {
               return index !== number ? (
                 <RiIcons.RiCheckboxBlankCircleLine className="text-customYellow" />
@@ -165,7 +177,7 @@ function LandingPage() {
               );
             })}
             <div></div>
-          </div>
+          </div> */}
         </div>
       ) : (
         <div>loading</div>
