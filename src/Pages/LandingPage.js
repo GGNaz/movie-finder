@@ -73,7 +73,7 @@ function LandingPage() {
       .all(
         topmovies.map((apiRoute) =>
           axios
-            .get(`http://www.omdbapi.com/?t=${apiRoute}&apikey=bfa46097`)
+            .get(`https://www.omdbapi.com/?t=${apiRoute}&apikey=bfa46097`)
             .then((res) => res.data)
         )
       )
