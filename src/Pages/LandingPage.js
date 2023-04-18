@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Carousel } from "react-carousel-minimal";
 import * as RiIcons from "react-icons/ri";
-import logo from "../Assets/logo.png"
+import logo from "../Assets/logo.png";
 
 function LandingPage() {
   const data = [
@@ -27,8 +27,7 @@ function LandingPage() {
       caption: "John Wick",
     },
     {
-      image:
-        "https://wallpapercave.com/dwp1x/wp1945913.jpg",
+      image: "https://wallpapercave.com/dwp1x/wp1945913.jpg",
       caption: "Sherlock Holmes",
     },
     {
@@ -53,40 +52,37 @@ function LandingPage() {
     },
   ];
 
-
   const [topMovieList, setTopMovieList] = useState([]);
   console.log("topMovieList", topMovieList);
 
   useEffect(() => {
     // const getMovieList = async () => {
-      // await axios
-      //   .all(
-      //     topMovies.map((apiRoute) =>
-      //       axios
-      //         .get(`http://www.omdbapi.com/?t=${apiRoute}&apikey=bfa46097`)
-      //         .then((res) => res.data)
-      //     )
-      //   )
-      //   .then((res) => {
-      //     if (res?.length > 0) {
-      //       let storeMovie = [];
-      //       res.map((data) => {
-      //         const params = {
-      //           ...data,
-      //           image: data.Poster,
-      //           caption: data.Title,
-      //         };
-      //         storeMovie.push(params);
-      //       });
-      //       return setTopMovieList(storeMovie);
-      //     }
-      //   });
-      // .get(``)
+    // await axios
+    //   .all(
+    //     topMovies.map((apiRoute) =>
+    //       axios
+    //         .get(`http://www.omdbapi.com/?t=${apiRoute}&apikey=bfa46097`)
+    //         .then((res) => res.data)
+    //     )
+    //   )
+    //   .then((res) => {
+    //     if (res?.length > 0) {
+    //       let storeMovie = [];
+    //       res.map((data) => {
+    //         const params = {
+    //           ...data,
+    //           image: data.Poster,
+    //           caption: data.Title,
+    //         };
+    //         storeMovie.push(params);
+    //       });
+    //       return setTopMovieList(storeMovie);
+    //     }
+    //   });
+    // .get(``)
 
-      setTopMovieList(data);
+    setTopMovieList(data);
     // };
-
-
   }, []);
   const [number, setNumber] = useState(0);
   console.log("number", number);
@@ -146,42 +142,43 @@ function LandingPage() {
         // />
         <div className="flex h-screen ">
           <div className="flex flex-col z-50 w-full">
-
-          <div className="basis-3/5">
-          <div className="flex flex-row w-full justify-between z-50 h-20">
-            <div className="flex flex-row justify-center gap-4 text-white items-center">
-              <img src={logo} className="h-16 w-12" alt="logo" />
-              <div>TOP CAST</div>
-              <div>PHOTOS</div>
-              <div>VIDEOS</div>
-              <div>SIMILAR MOVIES</div>
+            <div className="basis-4/5">
+              <div className="flex flex-row w-full justify-between z-50 h-20">
+                <div className="flex flex-row justify-center gap-4 text-white items-center">
+                  <img src={logo} className="h-16 w-12" alt="logo" />
+                  <div>TOP CAST</div>
+                  <div>PHOTOS</div>
+                  <div>VIDEOS</div>
+                  <div>SIMILAR MOVIES</div>
+                </div>
+                <div className="flex flex-row gap-2 px-4 justify-center items-center text-white">
+                  <div>Login</div>
+                  <div>/</div>
+                  <div>Sign in</div>
+                </div>
               </div>
-              <div className="flex flex-row gap-2 px-4 justify-center items-center text-white">
-                <div>Login</div>
-                <div>/</div>
-                <div>Sign in</div>
-              </div>
-          </div>
-          </div>
-          <div className="basis-2/5  px-10">
-            <div className="flex">
-              <div className="basis-2/4 flex flex-col gap-2">
-              <div className="text-[#B1060F] font-extrabold text-6xl">
-              {topMovieList[number]?.caption}
-              </div>
-              <div className="flex flex-row justify-between">
-              <div className="text-white flex flex-row gap-1 items-center"><RiIcons.RiStarFill className="text-customYellow" /><span>8.9</span> <div>| 5,324</div> </div>
-              <div className="text-white flex flex-row gap-1"><span>2h 35m</span> <li/> <div>Action, Adventure, Drama</div>  <li/> <span>2021</span></div>
-              </div>
-              </div>
-              <div className="basis-2/4">
-
-              </div>
-            
             </div>
-          
-          </div>
-
+            <div className="flex w-full md:basis-1/5  px-10">
+              <div className="flex">
+                <div className="md:basis-2/4 flex flex-col gap-2">
+                  <div className="text-[#B1060F] font-extrabold text-6xl">
+                    {topMovieList[number]?.caption}
+                  </div>
+                  <div className="flex flex-col md:flex-row justify-between">
+                    <div className="text-white flex flex-row gap-1 items-center">
+                      <RiIcons.RiStarFill className="text-customYellow" />
+                      <span>8.9</span> <div>| 5,324</div>{" "}
+                    </div>
+                    <div className="text-white flex flex-row gap-1">
+                      <span>2h 35m</span> <li />{" "}
+                      <div>Action, Adventure, Drama</div> <li />{" "}
+                      <span>2021</span>
+                    </div>
+                  </div>
+                </div>
+                {/* <div className="basis-2/4"></div> */}
+              </div>
+            </div>
           </div>
           {/* <div className="flex flex-col z-50 h-full">
             <div className="basis-2/5 p-5 w-full  flex  justify-center items-center">
@@ -203,7 +200,7 @@ function LandingPage() {
             <div></div>
           </div> */}
           <div className="flex flex-row absolute justify-center w-full gap-2 bottom-2 z-50">
-          {topMovieList.map((_id, index) => {
+            {topMovieList.map((_id, index) => {
               return index !== number ? (
                 <RiIcons.RiCheckboxBlankCircleLine className="text-white" />
               ) : (
