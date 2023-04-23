@@ -18,16 +18,141 @@ function MovieList() {
       views: "42M",
     },
   ];
+
+  const newTrailers = () => {
+    return (
+      <div className="flex flex-col gap-2">
+        <div className="text-white text-lg font-medium">New Trailers</div>
+        <div className="flex flex-col gap-3">
+          {trendingList.map((data, index) => {
+            const { title, release, views, url } = data;
+            return (
+              <div className="flex flex-col gap-1" key={index}>
+                <div className=" h-48">
+                  <ReactPlayer
+                    width="100%"
+                    height="100%"
+                    url={url}
+                    controls
+                    light
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <div className="text-white text-sm flex flex-row justify-between">
+                    <div>{title}</div>
+                    <div className="flex flex-row gap-1 items-center">
+                      <BiIcons.BsEye size={18} />
+                      <span>{views}</span>
+                    </div>
+                  </div>
+                  <div className="text-xs text-gray-500">
+                    Release On {release}
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const popularMovies = () => {
+    const popularMovies = [
+      {
+        title: "Murder Mystery 2",
+        url: "https://youtu.be/LM2F56uK0fs",
+      },
+      {
+        title: "Jung_E",
+        url: "https://youtu.be/LCxnmfdxJ6s",
+      },
+    ];
+    return (
+      <div className="flex flex-col gap-2 bo">
+        <div className="flex flex-row justify-between items-center">
+          <div className="text-white text-lg font-medium">Popular Movies</div>
+          <button className="text-white text-sm flex flex-row gap-1 items-center ">
+            <span>All Movies</span> <BiIcons.BsChevronRight />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 w-full gap-3">
+          {popularMovies.map((data) => {
+            const { title, url } = data ?? {};
+            return (
+              <div className=" flex flex-col gap-1">
+                <div className="h-full min-h-[40vh]">
+                  <ReactPlayer
+                    width="100%"
+                    height="100%"
+                    url={url}
+                    controls
+                    light
+                  />
+                </div>
+                <div className="font-medium text-sm text-white">{title}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
+  const trendingMovies = () => {
+    const trendingMovies = [
+      {
+        title: "Murder Mystery 2",
+        url: "https://youtu.be/LM2F56uK0fs",
+      },
+      {
+        title: "Jung_E",
+        url: "https://youtu.be/LCxnmfdxJ6s",
+      },
+    ];
+    return (
+      <div className="flex flex-col gap-2 bo">
+        <div className="flex flex-row justify-between items-center">
+          <div className="text-white text-lg font-medium">Trending Movies</div>
+          <button className="text-white text-sm flex flex-row gap-1 items-center ">
+            <span>All Movies</span> <BiIcons.BsChevronRight />
+          </button>
+        </div>
+
+        <div className="grid grid-cols-2 w-full gap-3">
+          {trendingMovies.map((data) => {
+            const { title, url } = data ?? {};
+            return (
+              <div className=" flex flex-col gap-1">
+                <div className="h-full min-h-[40vh]">
+                  <ReactPlayer
+                    width="100%"
+                    height="100%"
+                    url={url}
+                    controls
+                    light
+                  />
+                </div>
+                <div className="font-medium text-sm text-white">{title}</div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full bg-customBlack">
       <Navigation />
-      <div className=" p-5 flex flex-col">
+      <div className=" p-5 flex flex-col gap-3">
         <div className="bg-customGray/70 flex flex-row justify-between items-center  p-5 rounded-xl">
           <div className="flex flex-row gap-5 text-white">
             <div>Action</div>
-            <div>Horror</div>
+            <div>Animation</div>
             <div>Fantasy</div>
-            <div>Sci-fi</div>
+            <div>Romance</div>
           </div>
           <div>
             <input
@@ -37,42 +162,13 @@ function MovieList() {
             />
           </div>
         </div>
-        <div className="flex flex-row">
-          <div className="basis-3/4 "></div>
-          <div className="basis-1/4 border-l border-gray-800 p-2">
-            <div className="flex flex-col gap-2">
-              <div className="text-white text-lg font-medium">New Trailers</div>
-              <div className="flex flex-col gap-3">
-                {trendingList.map((data, index) => {
-                  const { title, release, views, url } = data;
-                  return (
-                    <div className="flex flex-col gap-1" key={index}>
-                      <div className=" h-48">
-                        <ReactPlayer
-                          width="100%"
-                          height="100%"
-                          url={url}
-                          controls
-                          light
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <div className="text-white text-sm flex flex-row justify-between">
-                          <div>{title}</div>
-                          <div className="flex flex-row gap-1 items-center">
-                            <BiIcons.BsEye size={18} />
-                            <span>{views}</span>
-                          </div>
-                        </div>
-                        <div className="text-xs text-gray-500">
-                          Release On {release}
-                        </div>
-                      </div>
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
+        <div className="flex flex-row gap-2">
+          <div className="basis-3/4 flex flex-col gap-6">
+            {trendingMovies()}
+            {popularMovies()}
+          </div>
+          <div className="basis-1/4 border-l border-gray-600 p-2">
+            {newTrailers()}
           </div>
         </div>
       </div>
