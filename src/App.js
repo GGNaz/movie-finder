@@ -19,7 +19,7 @@ function App() {
   return (
     <div className="h-screen ">
       {/* {asdasd.map(({ poster_path }) => (
-        <img src={poster_path} />
+        <img src={`${poster_path}`} />
       ))} */}
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>

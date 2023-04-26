@@ -167,7 +167,7 @@ function LandingPage() {
             </div>
             <div className="flex w-full basis-1/5 p-5 md:p-10">
               <div className="flex flex-col gap-2">
-                <div className="text-[#B1060F] font-extrabold text-3xl md:text-6xl">
+                <div className="text-customRed font-extrabold text-3xl md:text-6xl">
                   {topMovieList[number]?.Title}
                 </div>
                 <div className="flex flex-row gap-5 items-center text-white">
