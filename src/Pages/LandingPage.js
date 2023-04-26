@@ -6,6 +6,7 @@ import * as RiIcons from "react-icons/ri";
 import * as BiIcons from "react-icons/bs";
 import Navigation from "../Components/Navigation";
 import HOC from "../Components/HOC";
+import LoginModal from "../Components/LoginModal";
 
 function LandingPage() {
   const topmovies = [
@@ -64,6 +65,7 @@ function LandingPage() {
 
   const [topMovieList, setTopMovieList] = useState([]);
   const [number, setNumber] = useState(0);
+
   console.log("number", number);
 
   console.log("topMovieList", topMovieList);
@@ -156,11 +158,6 @@ function LandingPage() {
         backgroundImage: `url(${data[number]?.image}) `,
       }}
     >
-      {/* <iframe
-        src="https://www.youtube.com/embed/Zi88i4CpHe4"
-        // title="SHAZAM! FURY OF THE GODS - Official Trailer 1"
-        frameborder="0"
-      ></iframe> */}
       <div className="" />
       {topMovieList?.length > 0 ? (
         <div className="flex h-screen w-full bg-gradient-to-tr from-customBlack via-customBlack/70 to-customBlack/5 absolute z-20">

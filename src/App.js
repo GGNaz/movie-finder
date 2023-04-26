@@ -18,13 +18,13 @@ function App() {
   console.log("asdasd", asdasd);
   return (
     <div className="h-screen ">
-      {asdasd.map(({ poster_path }) => (
+      {/* {asdasd.map(({ poster_path }) => (
         <img src={poster_path} />
-      ))}
-      {/* <Routes>
+      ))} */}
+      <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/movies" element={<MovieList />}></Route>
-      </Routes> */}
+      </Routes>
     </div>
   );
 }

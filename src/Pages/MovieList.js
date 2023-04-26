@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import * as BiIcons from "react-icons/bs";
 
 function MovieList() {
-  const trendingList = [
+  const trailerList = [
     {
       title: "Blue Beetle",
       url: "https://youtu.be/vS3_72Gb-bI",
@@ -17,6 +17,12 @@ function MovieList() {
       release: "November 11, 2022",
       views: "42M",
     },
+    {
+      title: "Fast X",
+      url: "https://youtu.be/32RAq6JzY-w",
+      release: "May 19, 2023",
+      views: "37M",
+    },
   ];
 
   const newTrailers = () => {
@@ -24,7 +30,7 @@ function MovieList() {
       <div className="flex flex-col gap-2">
         <div className="text-white text-lg font-medium">New Trailers</div>
         <div className="flex flex-col gap-3">
-          {trendingList.map((data, index) => {
+          {trailerList.map((data, index) => {
             const { title, release, views, url } = data;
             return (
               <div className="flex flex-col gap-1" key={index}>
@@ -60,12 +66,20 @@ function MovieList() {
   const popularMovies = () => {
     const popularMovies = [
       {
-        title: "Murder Mystery 2",
-        url: "https://youtu.be/LM2F56uK0fs",
+        title: "Dog Gone",
+        url: "https://youtu.be/q4rdxpc3wk0",
       },
       {
-        title: "Jung_E",
-        url: "https://youtu.be/LCxnmfdxJ6s",
+        title: "Chupa",
+        url: "https://youtu.be/ViKnrHjzgn4",
+      },
+      {
+        title: "Dear David",
+        url: "https://youtu.be/RfwlJqZbaew",
+      },
+      {
+        title: "We Have a Ghost",
+        url: "https://youtu.be/82I1ErFD63U",
       },
     ];
     return (
@@ -77,12 +91,12 @@ function MovieList() {
           </button>
         </div>
 
-        <div className="grid grid-cols-2 w-full gap-3">
-          {popularMovies.map((data) => {
+        <div className="grid grid-cols-4 w-full gap-3">
+          {popularMovies.map((data, index) => {
             const { title, url } = data ?? {};
             return (
-              <div className=" flex flex-col gap-1">
-                <div className="h-full min-h-[40vh]">
+              <div className=" flex flex-col gap-1" key={index}>
+                <div className="h-full min-h-[20vh]">
                   <ReactPlayer
                     width="100%"
                     height="100%"
@@ -91,7 +105,7 @@ function MovieList() {
                     light
                   />
                 </div>
-                <div className="font-medium text-sm text-white">{title}</div>
+                <div className="font-light text-xs text-white">{title}</div>
               </div>
             );
           })}
@@ -112,19 +126,19 @@ function MovieList() {
       },
     ];
     return (
-      <div className="flex flex-col gap-2 bo">
+      <div className="flex flex-col gap-2 ">
         <div className="flex flex-row justify-between items-center">
-          <div className="text-white text-lg font-medium">Trending Movies</div>
+          <div className="text-white text-lg font-medium">New Movies</div>
           <button className="text-white text-sm flex flex-row gap-1 items-center ">
             <span>All Movies</span> <BiIcons.BsChevronRight />
           </button>
         </div>
 
         <div className="grid grid-cols-2 w-full gap-3">
-          {trendingMovies.map((data) => {
+          {trendingMovies.map((data, index) => {
             const { title, url } = data ?? {};
             return (
-              <div className=" flex flex-col gap-1">
+              <div className=" flex flex-col gap-1" key={index}>
                 <div className="h-full min-h-[40vh]">
                   <ReactPlayer
                     width="100%"
@@ -144,7 +158,7 @@ function MovieList() {
   };
 
   return (
-    <div className="flex flex-col w-full bg-customBlack">
+    <div className="flex flex-col w-full bg-customBlack pb-5">
       <Navigation />
       <div className=" p-5 flex flex-col gap-3">
         <div className="bg-customGray/70 flex flex-row justify-between items-center  p-5 rounded-xl">
@@ -167,7 +181,7 @@ function MovieList() {
             {trendingMovies()}
             {popularMovies()}
           </div>
-          <div className="basis-1/4 border-l border-gray-600 p-2">
+          <div className="basis-1/4 border-l border-gray-600 px-2">
             {newTrailers()}
           </div>
         </div>
