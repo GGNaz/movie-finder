@@ -2,8 +2,19 @@ import React from "react";
 import Navigation from "../Components/Navigation";
 import ReactPlayer from "react-player";
 import * as BiIcons from "react-icons/bs";
-
+import { useState } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import { Player } from "@lottiefiles/react-lottie-player";
 function MovieList() {
+  const [popularList, setPopularMovies] = useState([]);
+  const apiKey = "0d063d7aed88ac0312c521da1b31e63f";
+  const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&append_to_response=videos`;
+
+  useEffect(() => {
+    axios.get(apiUrl).then(({ data }) => setPopularMovies(data.results));
+  }, []);
+
   const trailerList = [
     {
       title: "Blue Beetle",
@@ -64,24 +75,6 @@ function MovieList() {
   };
 
   const popularMovies = () => {
-    const popularMovies = [
-      {
-        title: "Dog Gone",
-        url: "https://youtu.be/q4rdxpc3wk0",
-      },
-      {
-        title: "Chupa",
-        url: "https://youtu.be/ViKnrHjzgn4",
-      },
-      {
-        title: "Dear David",
-        url: "https://youtu.be/RfwlJqZbaew",
-      },
-      {
-        title: "We Have a Ghost",
-        url: "https://youtu.be/82I1ErFD63U",
-      },
-    ];
     return (
       <div className="flex flex-col gap-2 bo">
         <div className="flex flex-row justify-between items-center">
@@ -91,21 +84,41 @@ function MovieList() {
           </button>
         </div>
 
-        <div className="grid grid-cols-4 w-full gap-3">
-          {popularMovies.map((data, index) => {
-            const { title, url } = data ?? {};
+        <div className="grid grid-cols-4 w-full  gap-3">
+          {popularList.slice(0, 4).map((data, index) => {
+            const { poster_path, original_title } = data ?? {};
             return (
-              <div className=" flex flex-col gap-1" key={index}>
-                <div className="h-full min-h-[20vh]">
-                  <ReactPlayer
+              <div
+                className=" flex flex-col gap-1 h-full min-h-[20vh] cursor-pointer"
+                key={index}
+              >
+                <div className="h-full min-h-[20vh] flex flex-col relative">
+                  {/* <ReactPlayer
                     width="100%"
                     height="100%"
                     url={url}
                     controls
                     light
+                  /> */}
+                  <img
+                    src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
+                    className="h-full "
                   />
+                  <div className="z-40 absolute  group/item w-full h-full hover:bg-customBlack/70 hover:cursor-pointer ">
+                    <div className="absolute group/edit invisible  group-hover/item:visible z-40  w-full h-full text-white flex flex-col justify-center items-center">
+                      <Player
+                        src="https://assets9.lottiefiles.com/packages/lf20_hjyxybfm.json"
+                        loop
+                        className="h-32 w-32"
+                        autoplay
+                        key={index}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="font-light text-xs text-white">{title}</div>
+                <div className="font-light text-xs text-white h-[5vh]">
+                  {original_title}
+                </div>
               </div>
             );
           })}

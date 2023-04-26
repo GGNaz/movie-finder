@@ -7,7 +7,7 @@ function Navigation() {
   const navigate = useNavigate();
   const [openModal, setOpenModal] = useState(false);
   const showModal = () => {
-    return <LoginModal />;
+    return <LoginModal setOpenModal={setOpenModal} />;
   };
   return (
     <div className="flex flex-col">

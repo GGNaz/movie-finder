@@ -7,19 +7,16 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 function App() {
-  let ahshdasd = [];
-  const [asdasd, setasdasd] = useState([]);
-  const apiKey = "0d063d7aed88ac0312c521da1b31e63f";
-  const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&append_to_response=videos`;
+  // let ahshdasd = [];
 
-  useEffect(() => {
-    axios.get(apiUrl).then(({ data }) => setasdasd(data.results));
-  }, []);
-  console.log("asdasd", asdasd);
+  // console.log("asdasd", asdasd);
   return (
     <div className="h-screen ">
-      {/* {asdasd.map(({ poster_path }) => (
-        <img src={`${poster_path}`} />
+      {/* {asdasd.slice(0, 5).map(({ poster_path }) => (
+        <img
+          src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
+          className="h-60"
+        />
       ))} */}
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
