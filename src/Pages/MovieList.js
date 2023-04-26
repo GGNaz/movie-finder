@@ -92,7 +92,7 @@ function MovieList() {
                 className=" flex flex-col gap-1 h-full min-h-[20vh] cursor-pointer"
                 key={index}
               >
-                <div className="h-full min-h-[20vh] flex flex-col relative">
+                <div className="h-full min-h-[20vh] flex flex-col relative hover:w-[120%]">
                   {/* <ReactPlayer
                     width="100%"
                     height="100%"
