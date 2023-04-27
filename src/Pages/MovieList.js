@@ -6,14 +6,28 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { Player } from "@lottiefiles/react-lottie-player";
+import SearchList from "./SearchList";
 function MovieList() {
   const [popularList, setPopularMovies] = useState([]);
   const apiKey = "0d063d7aed88ac0312c521da1b31e63f";
   const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&append_to_response=videos`;
-
+  const [action, setAction] = useState({ type: "default", response: [] });
+  console.log("action", action);
   useEffect(() => {
     axios.get(apiUrl).then(({ data }) => setPopularMovies(data.results));
   }, []);
+
+  const actionChecker = () => {
+    switch (action?.type) {
+      case "default":
+        return defaultList();
+      case "popular":
+        return <div>popular</div>;
+      case "search":
+        return <SearchList reponse={action?.response} />;
+      // return <div>asdasd</div>;
+    }
+  };
 
   const trailerList = [
     {
@@ -74,9 +88,19 @@ function MovieList() {
     );
   };
 
+  const watchTrailer = async (id) => {
+    await axios
+      .get(`https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}`)
+      .then((res) => {
+        return console.log("res", res);
+      });
+  };
+
   const popularMovies = () => {
+    console.log("popularList", popularList);
+
     return (
-      <div className="flex flex-col gap-2 bo">
+      <div className="flex flex-col gap-2 ">
         <div className="flex flex-row justify-between items-center">
           <div className="text-white text-lg font-medium">Popular Movies</div>
           <button className="text-white text-sm flex flex-row gap-1 items-center ">
@@ -86,13 +110,15 @@ function MovieList() {
 
         <div className="grid grid-cols-4 w-full  gap-3">
           {popularList.slice(0, 4).map((data, index) => {
-            const { poster_path, original_title } = data ?? {};
+            const { poster_path, original_title, id, release_date } =
+              data ?? {};
             return (
               <div
                 className=" flex flex-col gap-1 h-full min-h-[20vh] cursor-pointer"
                 key={index}
+                onClick={() => watchTrailer(id)}
               >
-                <div className="h-full min-h-[20vh] flex flex-col relative hover:w-[120%]">
+                <div className="h-full min-h-[20vh] flex flex-col relative ">
                   {/* <ReactPlayer
                     width="100%"
                     height="100%"
@@ -111,13 +137,13 @@ function MovieList() {
                         loop
                         className="h-32 w-32"
                         autoplay
-                        key={index}
+                        key={id}
                       />
                     </div>
                   </div>
                 </div>
                 <div className="font-light text-xs text-white h-[5vh]">
-                  {original_title}
+                  {original_title} ({release_date.split("-")[0]})
                 </div>
               </div>
             );
@@ -170,6 +196,32 @@ function MovieList() {
     );
   };
 
+  const searchSpecificMovie = async (value) => {
+    if (value === "") {
+      setAction({ type: "default", response: [] });
+    } else {
+      await axios
+        .get(
+          `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${value}    `
+        )
+        .then(({ data, status }) => {
+          console.log("search", data);
+          if (status === 200) {
+            setAction({ type: "search", response: data?.results ?? [] });
+          }
+        });
+    }
+  };
+
+  const defaultList = () => {
+    return (
+      <div className="flex flex-col gap-6">
+        {trendingMovies()}
+        {popularMovies()}
+      </div>
+    );
+  };
+
   return (
     <div className="flex flex-col w-full bg-customBlack pb-5">
       <Navigation />
@@ -186,14 +238,12 @@ function MovieList() {
               type="text"
               placeholder="search..."
               className="focus:outline-none h-10 rounded-xl px-2 text-sm w-72"
+              onChange={(e) => searchSpecificMovie(e.target.value)}
             />
           </div>
         </div>
         <div className="flex flex-row gap-2">
-          <div className="basis-3/4 flex flex-col gap-6">
-            {trendingMovies()}
-            {popularMovies()}
-          </div>
+          <div className="basis-3/4 flex flex-col gap-6">{actionChecker()}</div>
           <div className="basis-1/4 border-l border-gray-600 px-2">
             {newTrailers()}
           </div>

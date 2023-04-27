@@ -23,7 +23,7 @@ function LoginModal({ setOpenModal }) {
 
   const loginLayout = () => {
     return (
-      <div className="flex flex-col gap-7 z-50 bg-black/80 w-full max-w-sm p-10 rounded-sm">
+      <div className="flex flex-col gap-7 z-40 bg-black/80 w-full max-w-sm p-10 rounded-sm">
         <div className="text-lg text-white">Sign in</div>
         <div className="flex flex-col gap-3">
           <input
