@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import MovieList from "./Pages/MovieList";
 import { useEffect, useState } from "react";
 import axios from "axios";
-
+import "animate.css";
 function App() {
   // let ahshdasd = [];
 

@@ -6,7 +6,7 @@ import * as BiIcons from "react-icons/bs";
 import ReactPlayer from "react-player";
 
 import screenfull from "screenfull";
-function VideoPlayer({ details }) {
+function VideoPlayer({ details, closeVideoPlayer }) {
   const {
     backdrop_path,
     poster_path,
@@ -49,7 +49,7 @@ function VideoPlayer({ details }) {
   };
 
   return (
-    <div className="absolute top-0 left-0 flex flex-col h-screen z-50 w-full overflow-y-hidden">
+    <div className="absolute top-0 left-0 flex flex-col h-screen z-50 w-full ">
       {video.isOpen && (
         <div className="flex justify-center items-center w-full h-screen absolute z-50">
           <div className="flex flex-col gap-1 w-full max-w-4xl bg-black p-5 pb-5 rounded-sm shadow-lg ">
@@ -77,7 +77,7 @@ function VideoPlayer({ details }) {
       )}
 
       <div
-        className={`w-full border-white bg-customBlack absolute top-0 left-0 z-40 h-screen ${
+        className={`w-full border-white bg-customBlack absolute top-0 left-0 z-40 h-screen  ${
           video.isOpen ? "blur-sm" : "blur-none"
         }`}
       >
@@ -92,11 +92,14 @@ function VideoPlayer({ details }) {
             </div>
           </div>
         </div>
-        <div className="flex h-screen w-full bg-none md:bg-gradient-to-r from-customBlack via-customBlack/90 to-customBlack/5 absolute top-0 left-0 z-30">
+        <div className="animate__animated animate__fadeInLeft flex h-screen w-full bg-none md:bg-gradient-to-r from-customBlack via-customBlack/90 to-customBlack/5 absolute top-0 left-0 z-30">
           <div className="p-10 flex flex-col gap-5 w-full md:w-basis-4/5 lg:basis-3/5">
             <div className="flex flex-col gap-20 md:gap-5">
               <div>
-                <button className="flex flex-row gap-2 text-customGray hover:text-white items-center ">
+                <button
+                  className="flex flex-row gap-2 text-customGray hover:text-white items-center "
+                  onClick={() => closeVideoPlayer()}
+                >
                   <BiIcons.BsArrowLeft />
                   <span>Back to Movie list</span>
                 </button>
@@ -105,16 +108,14 @@ function VideoPlayer({ details }) {
               <div className="flex flex-row gap-3">
                 <img
                   src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
-                  className="h-[50vh] hidden md:flex"
+                  className="h-[50vh] hidden md:flex "
                 />
                 <div className="flex flex-col gap-6">
                   <div className="flex flex-col gap-2">
                     <div className="text-4xl text-white font-semibold">
                       {title}
                     </div>
-                    <div className="text-white text-justify text-sm">
-                      {overview}
-                    </div>
+                    <div className="text-white  text-sm  ">{overview}</div>
                   </div>
                   <div className="flex flex-row gap-3">
                     <button
@@ -152,7 +153,7 @@ function VideoPlayer({ details }) {
                 <div className="text-md text-white">Popularity</div>
                 <div className="text-customGray text-xl flex flex-row gap-1 items-center">
                   <BiIcons.BsFillPeopleFill />
-                  <span>{popularity?.toFixed(2)}</span>
+                  <span>{popularity?.toFixed(0)}</span>
                 </div>
               </div>
               <div className="flex flex-col gap-1 ">

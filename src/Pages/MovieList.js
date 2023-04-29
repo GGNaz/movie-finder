@@ -9,6 +9,7 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import SearchList from "./SearchList";
 function MovieList() {
   const [popularList, setPopularMovies] = useState([]);
+  const [ifPlayerOpen, setIfPlayerOpen] = useState(false);
   const apiKey = "0d063d7aed88ac0312c521da1b31e63f";
   const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&append_to_response=videos`;
   const [action, setAction] = useState({ type: "default", response: [] });
@@ -24,7 +25,12 @@ function MovieList() {
       case "popular":
         return <div>popular</div>;
       case "search":
-        return <SearchList reponse={action?.response} />;
+        return (
+          <SearchList
+            reponse={action?.response}
+            setIfPlayerOpen={setIfPlayerOpen}
+          />
+        );
       // return <div>asdasd</div>;
     }
   };
@@ -242,11 +248,14 @@ function MovieList() {
             />
           </div>
         </div>
+
         <div className="flex flex-row gap-2">
           <div className="basis-3/4 flex flex-col gap-6">{actionChecker()}</div>
-          <div className="basis-1/4 border-l border-gray-600 px-2">
-            {newTrailers()}
-          </div>
+          {!ifPlayerOpen && (
+            <div className="basis-1/4 border-l border-gray-600 px-2">
+              {newTrailers()}
+            </div>
+          )}
         </div>
       </div>
     </div>

@@ -23,7 +23,7 @@ function LoginModal({ setOpenModal }) {
 
   const loginLayout = () => {
     return (
-      <div className="flex flex-col gap-7 z-40 bg-black/80 w-full max-w-sm p-10 rounded-sm">
+      <div className="flex flex-col gap-7 z-50 bg-black/80 w-full max-w-sm p-10 rounded-sm">
         <div className="text-lg text-white">Sign in</div>
         <div className="flex flex-col gap-3">
           <input
@@ -151,7 +151,7 @@ function LoginModal({ setOpenModal }) {
         className="h-screen w-full z-40 absolute  flex justify-center items-center bg-black/40 "
         onClick={() => setOpenModal(false)}
       />
-      <div className="h-screen w-full flex justify-center items-center hover:transition duration-700 ease-in-out">
+      <div className="h-screen w-full flex justify-center items-center hover:transition duration-700 ease-in-out ">
         {isLogin ? loginLayout() : registerLayout()}
       </div>
     </div>
