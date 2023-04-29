@@ -5,7 +5,7 @@ import VideoPlayer from "./VideoPlayer";
 function SearchList({ reponse }) {
   return (
     <div>
-      {/* <VideoPlayer details={reponse[0] ?? {}} /> */}
+      <VideoPlayer details={reponse[0] ?? {}} />
       <div className="flex flex-col gap-2 ">
         <div className="flex flex-row justify-between items-center">
           <div className="text-white text-lg font-medium">Search results :</div>

@@ -90,7 +90,7 @@ function LoginModal({ setOpenModal }) {
           />
           <div className="relative block">
             <input
-              type={showPassword ? "text" : "password"}
+              type={"password"}
               className="h-9 bg-[#333333] focus:outline-none text-white px-2 text-sm rounded-sm w-full block "
               placeholder="Password"
               value={formVal.pass1}
@@ -111,7 +111,7 @@ function LoginModal({ setOpenModal }) {
           </div>
           <div className="relative block">
             <input
-              type={showPassword ? "text" : "password"}
+              type={"password"}
               className="h-9 bg-[#333333] focus:outline-none text-white px-2 text-sm rounded-sm w-full block "
               placeholder="Confirm Password"
               value={formVal.pass2}
