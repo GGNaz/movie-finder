@@ -7,8 +7,12 @@ import * as BiIcons from "react-icons/bs";
 import Navigation from "../Components/Navigation";
 import HOC from "../Components/HOC";
 import LoginModal from "../Components/LoginModal";
+import { popularMoviesStore } from "../Zustand/popularMoviesStore";
+import { shallow } from "zustand/shallow";
 
 function LandingPage() {
+  const { movies } = popularMoviesStore((state) => state, shallow);
+  console.log("moviemoviemovie", movies);
   const topmovies = [
     "Spider-Man: No Way Home",
     "Venom: Let There Be Carnage",
@@ -153,7 +157,7 @@ function LandingPage() {
 
   return (
     <div
-      className="min-h-screen w-full bg-cover bg-center"
+      className="min-h-screen w-full bg-cover bg-center "
       style={{
         backgroundImage: `url(${data[number]?.image}) `,
       }}

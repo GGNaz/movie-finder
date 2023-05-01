@@ -49,7 +49,7 @@ function VideoPlayer({ details, closeVideoPlayer }) {
   };
 
   return (
-    <div className="absolute top-0 left-0 flex flex-col h-screen z-50 w-full ">
+    <div className="absolute top-0 left-0 flex flex-col h-screen z-50 w-full overflow-hidden">
       {video.isOpen && (
         <div className="flex justify-center items-center w-full h-screen absolute z-50">
           <div className="flex flex-col gap-1 w-full max-w-4xl bg-black p-5 pb-5 rounded-sm shadow-lg ">
@@ -77,7 +77,7 @@ function VideoPlayer({ details, closeVideoPlayer }) {
       )}
 
       <div
-        className={`w-full border-white bg-customBlack absolute top-0 left-0 z-40 h-screen  ${
+        className={`w-[105vw] -ml-2 border-white bg-customBlack absolute top-0 left-0 z-40 h-[105vh]  ${
           video.isOpen ? "blur-sm" : "blur-none"
         }`}
       >
@@ -86,13 +86,13 @@ function VideoPlayer({ details, closeVideoPlayer }) {
             <div className="flex  w-full md:w-[90vw] lg:w-[80vw] relative">
               <img
                 src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${backdrop_path}`}
-                className="h-[40vh] md:h-screen z-20 w-full"
+                className="h-[40vh] md:h-screen z-20 w-full animate__animated animate__fadeInRight"
               />
               <div className="absolute  inset-0 bg-gradient-to-t md:bg-gradient-to-r from-customBlack via-customBlack/80 to-customBlack/5 w-full md:w-[10vw] z-20"></div>
             </div>
           </div>
         </div>
-        <div className="animate__animated animate__fadeInLeft flex h-screen w-full bg-none md:bg-gradient-to-r from-customBlack via-customBlack/90 to-customBlack/5 absolute top-0 left-0 z-30">
+        <div className="overflow-hidden animate__animated animate__fadeInLeft flex h-screen w-full bg-none md:bg-gradient-to-r from-customBlack via-customBlack/90 to-customBlack/5 absolute top-0 left-0 z-30">
           <div className="p-10 flex flex-col gap-5 w-full md:w-basis-4/5 lg:basis-3/5">
             <div className="flex flex-col gap-20 md:gap-5">
               <div>

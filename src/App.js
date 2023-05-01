@@ -5,10 +5,28 @@ import { Routes, Route } from "react-router-dom";
 import MovieList from "./Pages/MovieList";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import "animate.css";
+// import "animate.css";
+import { popularMoviesStore } from "./Zustand/popularMoviesStore";
+import { shallow } from "zustand/shallow";
+import { trendingMoviesStore } from "./Zustand/trendingMoviesStore";
 function App() {
+  const { storePopularMovies, popularMovies } = popularMoviesStore(
+    (state) => state,
+    shallow
+  );
+  const { storeTrendingMovies, trendingMovies } = trendingMoviesStore(
+    (state) => state,
+    shallow
+  );
+  console.log("trendingMovies", trendingMovies);
   // let ahshdasd = [];
+  useState(() => {
+    trendingMovies?.length <= 0 && storeTrendingMovies();
+  }, [trendingMovies]);
 
+  useEffect(() => {
+    storePopularMovies();
+  }, [storePopularMovies]);
   // console.log("asdasd", asdasd);
   return (
     <div className="h-screen ">
