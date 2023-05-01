@@ -166,31 +166,55 @@ function LandingPage() {
       {topMovieList?.length > 0 ? (
         <div className="flex h-screen w-full bg-gradient-to-tr from-customBlack via-customBlack/70 to-customBlack/5 absolute z-20">
           <div className="flex flex-col z-50 w-full">
-            <div className="basis-4/5">
+            <div className="w-full">
               <Navigation />
             </div>
-            <div className="flex w-full basis-1/5 p-5 md:p-10">
-              <div className="flex flex-col gap-2">
-                <div className="text-customRed font-extrabold text-3xl md:text-6xl">
-                  {topMovieList[number]?.Title}
-                </div>
-                <div className="flex flex-row gap-5 items-center text-white">
-                  <div>
-                    {topMovieList[number]?.Genre.split(",").map(
-                      (data, index) => `${data} ${index < 2 ? " | " : ""}`
-                    )}
-                  </div>
-                  <div className="flex flex-row gap-1  items-center text-customYellow">
-                    <div>
-                      <BiIcons.BsFillStarFill />
+            {/* <div className="flex w-full basis-1/5 p-5 md:p-10">
+              
+            </div> */}
+            <div className="flex fex-col h-screen justify-end relative">
+              <div className=" flex flex-row absolute bottom-2 left-0 w-full  px-2">
+                <div className="basis-2/4 border">
+                  <div className="flex flex-col gap-2">
+                    <div className="text-customRed font-extrabold text-3xl md:text-6xl">
+                      {topMovieList[number]?.Title}
                     </div>
-                    <div>{topMovieList[number]?.imdbRating}</div>
+                    <div className="flex flex-row gap-5 items-center text-white">
+                      <div>
+                        {topMovieList[number]?.Genre.split(",").map(
+                          (data, index) => `${data} ${index < 2 ? " | " : ""}`
+                        )}
+                      </div>
+                      <div className="flex flex-row gap-1  items-center text-customYellow">
+                        <div>
+                          <BiIcons.BsFillStarFill />
+                        </div>
+                        <div>{topMovieList[number]?.imdbRating}</div>
+                      </div>
+                    </div>
+                    <div className="text-white">
+                      {topMovieList[number]?.Plot}
+                    </div>
+
+                    <div className="flex flex-row gap-3">
+                      <button
+                        className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customRed "
+                        // onClick={() => playVideo()}
+                      >
+                        <BiIcons.BsPlayFill className="h-6 w-6" />
+                        <span>Play</span>
+                      </button>
+                      <button className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customGray">
+                        <BiIcons.BsPlus className="h-6 w-6" />
+                        <span>Watch List</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
-                <div className="text-white">{topMovieList[number]?.Plot}</div>
+                <div className="basis-2/4  border">2</div>
               </div>
             </div>
-            <div className="md:flex hidden">
+            {/* <div className="md:flex hidden">
               <div className="flex flex-row gap-5 p-5 items-center h-[20vh] bg-customBlack/30 overflow-hidden">
                 {data.map(({ image }, index) => (
                   <div key={index}>
@@ -206,7 +230,7 @@ function LandingPage() {
                   </div>
                 ))}
               </div>
-            </div>
+            </div> */}
           </div>
           {/* <div className="flex flex-col z-50 h-full">
             <div className="basis-2/5 p-5 w-full  flex  justify-center items-center">

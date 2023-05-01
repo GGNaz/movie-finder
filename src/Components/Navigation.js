@@ -10,7 +10,7 @@ function Navigation() {
     return <LoginModal setOpenModal={setOpenModal} />;
   };
   return (
-    <div className="flex flex-col px-2">
+    <div className="flex flex-col">
       {openModal && showModal()}
       <div className="flex flex-row w-full justify-between items-center z-40 h-20">
         <div className="flex flex-row justify-center gap-4 text-white items-center cursor-pointer">
