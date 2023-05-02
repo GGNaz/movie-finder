@@ -1,11 +1,11 @@
 import React from "react";
-import logo from "../Assets/logo.png";
+import logo from "../Assets/netflixwallpaper.png";
 
 function HOC() {
   return (
-    <div className="h-screen flex justify-center items-center w-full bg-customBlack">
-      <img src={logo} alt="logo" className="h-32 w-32" />
-    </div>
+    // <div className="h-screen flex justify-center items-center w-full bg-customBlack">
+    <img src={logo} alt="logo" className="h-screen w-full bg-cover" />
+    // </div>
   );
 }
 

@@ -7,28 +7,28 @@ const popularMoviesObj = {
 };
 
 const getAllPopularMovies = async (set) => {
-  let store3Movies = [];
+  let storeMovies = [];
   await getAPI("/movie/popular", "&append_to_response=videos").then(
     ({ data }) => {
       console.log("data", data);
 
-      const copy3Movies = data.results.splice(0, 3);
-      console.log("copy3Movies", copy3Movies);
-      copy3Movies?.map(async (response) => {
+      const copyMovies = data.results.splice(0, 7);
+      console.log("copyMovies", copyMovies);
+      copyMovies?.map(async (response) => {
         await getAPI(`/movie/${response?.id}/credits`, "&language=en-US").then(
           (castres) => {
             const params = {
               ...response,
               cast: { ...castres.data.cast },
             };
-            store3Movies.push(params);
+            storeMovies.push(params);
           }
         );
       });
-      console.log("store3Movies", store3Movies);
+      console.log("storeMovies", storeMovies);
       return set({
         popularMovies: data.results,
-        movies: store3Movies,
+        movies: storeMovies,
       });
       // console.log("getAllPopularMovies", res);
     }

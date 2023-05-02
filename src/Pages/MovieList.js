@@ -223,21 +223,29 @@ function MovieList() {
     <div className="flex flex-col w-full bg-customBlack pb-5">
       <Navigation />
       <div className=" p-5 flex flex-col gap-3">
-        <div className="bg-customGray/70 flex flex-row justify-between items-center  p-5 rounded-xl">
+        <div className=" flex flex-row justify-between items-center  p-5 rounded-xl">
           <div className="flex flex-row gap-5 text-white">
-            <div>Action</div>
+            <div className="h-10 w-32 flex flex-col justify-center items-center relative rounded-md border hover:cursor-pointer">
+              <div className="absolute z-30">Action</div>
+              <div className="w-full absolute h-full  z-20 rounded-md bg-customBlack hover:bg-black/50" />
+              <img
+                src="https://i.pinimg.com/originals/6c/0f/21/6c0f21ec1e85c2d2f5a17981cd9f716e.gif"
+                className="h-full w-full rounded-md"
+              />
+            </div>
+
             <div>Animation</div>
             <div>Fantasy</div>
             <div>Romance</div>
           </div>
           <div className="relative block ">
-            <BiIcons.BsSearch className="absolute left-1 top-3 mx-1 inset-0 text-customBlack" />
+            {/* <BiIcons.BsSearch className="absolute left-1 top-3 mx-1 inset-0 text-customBlack" />
             <input
               type="text"
               placeholder="search..."
               className="focus:outline-none h-10 rounded-xl pl-8 text-sm w-80 border-l"
               onChange={(e) => searchSpecificMovie(e.target.value)}
-            />
+            /> */}
           </div>
         </div>
         {!openMovie.isOpen ? (

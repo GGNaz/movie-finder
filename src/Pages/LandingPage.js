@@ -9,6 +9,7 @@ import HOC from "../Components/HOC";
 import LoginModal from "../Components/LoginModal";
 import { popularMoviesStore } from "../Zustand/popularMoviesStore";
 import { shallow } from "zustand/shallow";
+import moment from "moment";
 
 function LandingPage() {
   const { movies } = popularMoviesStore((state) => state, shallow);
@@ -157,12 +158,16 @@ function LandingPage() {
 
   return (
     <div
-      className="min-h-screen w-full bg-cover bg-center "
-      style={{
-        backgroundImage: `url(${data[number]?.image}) `,
-      }}
+      className="h-screen w-full "
+      // style={{
+      //   backgroundImage: `url(https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movies[number]?.poster_path}) `,
+      // }}
     >
-      <div className="" />
+      <img
+        src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movies[number]?.poster_path}`}
+        className={`absolute top-0 left-0 z-10 h-screen w-full `}
+      />
+      {/* bg-gradient-to-tr from-customBlack via-customBlack/70 to-customBlack/5 */}
       {topMovieList?.length > 0 ? (
         <div className="flex h-screen w-full bg-gradient-to-tr from-customBlack via-customBlack/70 to-customBlack/5 absolute z-20">
           <div className="flex flex-col z-50 w-full">
@@ -172,65 +177,61 @@ function LandingPage() {
             {/* <div className="flex w-full basis-1/5 p-5 md:p-10">
               
             </div> */}
-            <div className="flex fex-col h-screen justify-end relative">
-              <div className=" flex flex-row absolute bottom-2 left-0 w-full  px-2">
-                <div className="basis-2/4 border">
-                  <div className="flex flex-col gap-2">
-                    <div className="text-customRed font-extrabold text-3xl md:text-6xl">
-                      {topMovieList[number]?.Title}
+            <div className="flex fex-col h-screen p-5  relative items-center">
+              <div className="flex flex-col justify-start basis-2/4">
+                {/* <div className=" flex flex-row absolute bottom-2 left-0 w-full  px-2"> */}
+                <div className=" flex flex-col ">
+                  <div className="flex flex-col gap-5">
+                    <div className="text-white/80  font-extrabold text-3xl md:text-6xl ">
+                      {movies[number]?.title}
                     </div>
-                    <div className="flex flex-row gap-5 items-center text-white">
-                      <div>
-                        {topMovieList[number]?.Genre.split(",").map(
-                          (data, index) => `${data} ${index < 2 ? " | " : ""}`
-                        )}
-                      </div>
-                      <div className="flex flex-row gap-1  items-center text-customYellow">
-                        <div>
-                          <BiIcons.BsFillStarFill />
-                        </div>
-                        <div>{topMovieList[number]?.imdbRating}</div>
+                    <div className="text-white/90 flex flex-row gap-5">
+                      {moment(movies[number].release_date).format("LL")}
+                      <div className="flex flex-row gap-1 items-center">
+                        <BiIcons.BsFillStarFill />
+                        <span>{movies[number]?.vote_average?.toFixed(0)}</span>
                       </div>
                     </div>
-                    <div className="text-white">
-                      {topMovieList[number]?.Plot}
-                    </div>
-
                     <div className="flex flex-row gap-3">
                       <button
                         className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customRed "
                         // onClick={() => playVideo()}
                       >
                         <BiIcons.BsPlayFill className="h-6 w-6" />
-                        <span>Play</span>
+                        <span>Play now</span>
                       </button>
-                      <button className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customGray">
+                      <button className="flex flex-row  items-center px-5 py-1 text-white/90 rounded-lg border-2 border-white/80 ">
                         <BiIcons.BsPlus className="h-6 w-6" />
                         <span>Watch List</span>
                       </button>
                     </div>
                   </div>
                 </div>
-                <div className="basis-2/4  border">2</div>
               </div>
+              {/* </div> */}
             </div>
-            {/* <div className="md:flex hidden">
-              <div className="flex flex-row gap-5 p-5 items-center h-[20vh] bg-customBlack/30 overflow-hidden">
-                {data.map(({ image }, index) => (
-                  <div key={index}>
+            <div className="md:flex gap-1 flex-col  hidden  p-5 z-20">
+              <div className="text-white/90 font-medium text-lg">
+                Continue watching
+              </div>
+              <div className="flex flex-row gap-5 items-center h-[30vh] overflow-hidden ">
+                {movies.map(({ poster_path, id }, index) => (
+                  <div key={id}>
                     <img
-                      src={image}
-                      alt={image}
-                      className={`w-full ${
-                        index !== number
-                          ? "h-28 w-28 md:w-80"
-                          : "h-40 w-40 md:w-96 "
-                      }  hover:transition duration-700 ease-in-out`}
+                      src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
+                      alt={poster_path}
+                      className="h-full"
+                      // className={`w-full ${
+                      //   index !== number
+                      //     ? "h-28 w-28 md:w-80"
+                      //     : "h-40 w-40 md:w-96 "
+                      // }  hover:transition duration-700 ease-in-out`}
                     />
                   </div>
                 ))}
               </div>
-            </div> */}
+            </div>
+            <div className="absolute z-10 bottom-0 left-0 w-full h-[50vh] blur-sm bg-gradient-to-t from-black via-black/80 to-black/5" />
           </div>
           {/* <div className="flex flex-col z-50 h-full">
             <div className="basis-2/5 p-5 w-full  flex  justify-center items-center">
