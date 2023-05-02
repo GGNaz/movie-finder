@@ -9,7 +9,7 @@ function HOC() {
       <Player
         src="https://assets6.lottiefiles.com/private_files/lf30_06kvvo5n.json"
         loop
-        className="h-32 w-32"
+        className="h-20 w-20"
         autoplay
         // key={id}
       />

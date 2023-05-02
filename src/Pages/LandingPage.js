@@ -153,7 +153,7 @@ function LandingPage() {
       }
 
       // }
-    }, 3000);
+    }, 4000);
   }, []);
 
   return (
@@ -164,9 +164,11 @@ function LandingPage() {
       // }}
     >
       <img
-        src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movies[number]?.poster_path}`}
-        className={`absolute top-0 left-0 z-10 h-screen w-full `}
+        src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movies[number]?.backdrop_path}`}
+        className={`absolute top-0 left-0 -z-10 h-full w-full bg-cover`}
+        alt="bgcover"
       />
+
       {/* <div className="h-screen w-full z-20 absolute top-0 left-0 blur-sm" /> */}
       {/* bg-gradient-to-tr from-customBlack via-customBlack/70 to-customBlack/5 */}
       {topMovieList?.length > 0 ? (
@@ -221,7 +223,7 @@ function LandingPage() {
                     <img
                       src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
                       alt={poster_path}
-                      className="h-full w-full rounded-md shadow-sm"
+                      className="h-full w-full rounded-md shadow-sm "
                       // className={`w-full ${
                       //   index !== number
                       //     ? "h-28 w-28 md:w-80"
