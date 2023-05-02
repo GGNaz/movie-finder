@@ -6,14 +6,14 @@ import LoginModal from "./LoginModal";
 function Navigation() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-
+  const [searchClicked, setSearchClicked] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const showModal = () => {
     return <LoginModal setOpenModal={setOpenModal} />;
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col overflow-hidden">
       {openModal && showModal()}
       <div className="flex flex-row w-full justify-between items-center z-40 h-20">
         <div className="flex flex-row justify-center gap-4 text-white items-center cursor-pointer">
@@ -37,16 +37,21 @@ function Navigation() {
           </div>
         </div>
         <div className="px-2 flex flex-row gap-1">
-          <div className="flex flex-row items-center px-2 justify-center gap-2 bg-black/5">
-            <BiIcons.BsSearch className="text-white" />
-            <input
-              type="text"
-              className="text-sm focus:outline-none w-40 bg-transparent text-white"
-              placeholder="SEARCH"
+          <div className="flex flex-row items-center px-2 justify-center gap-2 ">
+            <BiIcons.BsSearch
+              className="text-white cursor-pointer hover:text-white/80"
+              onClick={() => setSearchClicked(!searchClicked)}
             />
+            {searchClicked && (
+              <input
+                type="text"
+                className="text-sm focus:outline-none w-40 bg-transparent text-white animate__animated animate__lightSpeedInRight "
+                placeholder="SEARCH"
+              />
+            )}
           </div>
           <button
-            className="flex flex-row gap-1 p-2 justify-center items-center bg-customBlack/70 text-white rounded-full text-sm"
+            className="flex flex-row gap-1 hover:text-white/80 p-2 justify-center items-center bg-customBlack/70 text-white rounded-full text-sm"
             onClick={() => setOpenModal(true)}
           >
             <BiIcons.BsFillPersonFill size={18} />

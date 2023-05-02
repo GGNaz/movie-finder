@@ -167,9 +167,10 @@ function LandingPage() {
         src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movies[number]?.poster_path}`}
         className={`absolute top-0 left-0 z-10 h-screen w-full `}
       />
+      {/* <div className="h-screen w-full z-20 absolute top-0 left-0 blur-sm" /> */}
       {/* bg-gradient-to-tr from-customBlack via-customBlack/70 to-customBlack/5 */}
       {topMovieList?.length > 0 ? (
-        <div className="flex h-screen w-full bg-gradient-to-tr from-customBlack via-customBlack/70 to-customBlack/5 absolute z-20">
+        <div className="flex h-screen w-full bg-gradient-to-tr from-customBlack via-customBlack/80 to-customBlack/5 absolute z-20">
           <div className="flex flex-col z-50 w-full">
             <div className="w-full">
               <Navigation />
@@ -182,25 +183,25 @@ function LandingPage() {
                 {/* <div className=" flex flex-row absolute bottom-2 left-0 w-full  px-2"> */}
                 <div className=" flex flex-col ">
                   <div className="flex flex-col gap-5">
-                    <div className="text-white/80  font-extrabold text-3xl md:text-6xl ">
+                    <div className="text-white/80  font-extrabold text-3xl md:text-6xl h-[20vh]">
                       {movies[number]?.title}
                     </div>
                     <div className="text-white/90 flex flex-row gap-5">
                       {moment(movies[number].release_date).format("LL")}
                       <div className="flex flex-row gap-1 items-center">
-                        <BiIcons.BsFillStarFill />
-                        <span>{movies[number]?.vote_average?.toFixed(0)}</span>
+                        <BiIcons.BsFillStarFill className="text-customYellow" />
+                        <span>{movies[number]?.vote_average?.toFixed(2)}</span>
                       </div>
                     </div>
                     <div className="flex flex-row gap-3">
                       <button
-                        className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customRed "
+                        className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customRed hover:bg-customRed/80"
                         // onClick={() => playVideo()}
                       >
                         <BiIcons.BsPlayFill className="h-6 w-6" />
                         <span>Play now</span>
                       </button>
-                      <button className="flex flex-row  items-center px-5 py-1 text-white/90 rounded-lg border-2 border-white/80 ">
+                      <button className="flex flex-row  items-center px-5 py-1 text-white/90 hover:bg-white/10 rounded-lg border-2 border-white/80 ">
                         <BiIcons.BsPlus className="h-6 w-6" />
                         <span>Watch List</span>
                       </button>
@@ -216,11 +217,11 @@ function LandingPage() {
               </div>
               <div className="flex flex-row gap-5 items-center h-[30vh] overflow-hidden ">
                 {movies.map(({ poster_path, id }, index) => (
-                  <div key={id}>
+                  <div key={id} className=" h-full w-full">
                     <img
                       src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
                       alt={poster_path}
-                      className="h-full"
+                      className="h-full w-full rounded-md shadow-sm"
                       // className={`w-full ${
                       //   index !== number
                       //     ? "h-28 w-28 md:w-80"
@@ -231,7 +232,7 @@ function LandingPage() {
                 ))}
               </div>
             </div>
-            <div className="absolute z-10 bottom-0 left-0 w-full h-[50vh] blur-sm bg-gradient-to-t from-black via-black/80 to-black/5" />
+            <div className="absolute z-10 bottom-0 left-0 w-full h-[35vh] blur-sm bg-gradient-to-t from-black via-black/60 to-black/5" />
           </div>
           {/* <div className="flex flex-col z-50 h-full">
             <div className="basis-2/5 p-5 w-full  flex  justify-center items-center">
