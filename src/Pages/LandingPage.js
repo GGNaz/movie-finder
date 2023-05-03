@@ -165,7 +165,7 @@ function LandingPage() {
     >
       <img
         src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movies[number]?.backdrop_path}`}
-        className={`absolute top-0 left-0 -z-10 h-full w-full bg-cover`}
+        className={`absolute top-0 left-0 -z-10 h-[70vh] md:h-full w-full bg-cover`}
         alt="bgcover"
       />
 
@@ -185,25 +185,38 @@ function LandingPage() {
                 {/* <div className=" flex flex-row absolute bottom-2 left-0 w-full  px-2"> */}
                 <div className=" flex flex-col ">
                   <div className="flex flex-col gap-5">
-                    <div className="text-white/80  font-extrabold text-4xl md:text-6xl h-full md:h-[20vh]">
+                    <div className="text-white/80  font-extrabold text-5xl md:text-6xl h-full md:h-[20vh]">
                       {movies[number]?.title}
                     </div>
                     <div className="text-white/90 flex flex-row gap-5">
-                      {moment(movies[number].release_date).format("LL")}
+                      Release Date:{" "}
+                      <span className="text-customGray">
+                        {moment(movies[number].release_date).format("LL")}
+                      </span>
                       <div className="flex flex-row gap-1 items-center text-customYellow">
                         <BiIcons.BsFillStarFill />
                         <span>{movies[number]?.vote_average?.toFixed(2)}</span>
                       </div>
                     </div>
-                    <div className="flex flex-row gap-3">
+                    {/* <div className="flex flex-col gap-1">
+                      <div className="text-white/80">Cast</div>
+                      <div className="flex flex-row gap-1">
+                        {movies[0]?.cast
+                          ?.slice(0.3)
+                          ?.map(({ name, profile_path }) => {
+                            return <div className="text-white/80">{name}</div>;
+                          })}
+                      </div>
+                    </div> */}
+                    <div className="flex flex-row gap-3 h-[6vh] md:h-fit">
                       <button
-                        className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customRed hover:bg-customRed/80"
+                        className="flex flex-row  w-full md:w-fit items-center px-5 py-1 text-white rounded-lg bg-customRed hover:bg-customRed/80"
                         // onClick={() => playVideo()}
                       >
                         <BiIcons.BsPlayFill className="h-6 w-6" />
                         <span>Play now</span>
                       </button>
-                      <button className="flex flex-row  items-center px-5 py-1 text-white/90 hover:bg-white/10 rounded-lg border-2 border-white/80 ">
+                      <button className="flex flex-row  w-full md:w-fit items-center px-5 py-1 text-white/90 hover:bg-white/10 rounded-lg border-2 border-white/80 ">
                         <BiIcons.BsPlus className="h-6 w-6" />
                         <span>Watch List</span>
                       </button>
@@ -234,7 +247,7 @@ function LandingPage() {
                 ))}
               </div>
             </div>
-            <div className="absolute z-10 bottom-0 left-0 w-full h-[35vh] blur-sm bg-gradient-to-t from-black via-black/60 to-black/5" />
+            <div className="absolute z-10 bottom-0 left-0 w-full h-[62vh] md:h-[35vh] blur-sm bg-gradient-to-t from-black via-black to-black/5" />
           </div>
           {/* <div className="flex flex-col z-50 h-full">
             <div className="basis-2/5 p-5 w-full  flex  justify-center items-center">
