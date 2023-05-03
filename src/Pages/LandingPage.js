@@ -180,18 +180,18 @@ function LandingPage() {
             {/* <div className="flex w-full basis-1/5 p-5 md:p-10">
               
             </div> */}
-            <div className="flex fex-col h-screen p-5  relative items-center">
-              <div className="flex flex-col justify-start basis-2/4">
+            <div className="flex fex-col h-screen p-5 z-20 md:z-0  relative items-end md:items-center">
+              <div className="flex flex-col justify-start w-full md:basis-2/4">
                 {/* <div className=" flex flex-row absolute bottom-2 left-0 w-full  px-2"> */}
                 <div className=" flex flex-col ">
                   <div className="flex flex-col gap-5">
-                    <div className="text-white/80  font-extrabold text-3xl md:text-6xl h-[20vh]">
+                    <div className="text-white/80  font-extrabold text-4xl md:text-6xl h-full md:h-[20vh]">
                       {movies[number]?.title}
                     </div>
                     <div className="text-white/90 flex flex-row gap-5">
                       {moment(movies[number].release_date).format("LL")}
-                      <div className="flex flex-row gap-1 items-center">
-                        <BiIcons.BsFillStarFill className="text-customYellow" />
+                      <div className="flex flex-row gap-1 items-center text-customYellow">
+                        <BiIcons.BsFillStarFill />
                         <span>{movies[number]?.vote_average?.toFixed(2)}</span>
                       </div>
                     </div>

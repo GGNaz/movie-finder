@@ -33,8 +33,8 @@ const getAllPopularMovies = async (set) => {
       // console.log("getAllPopularMovies", res);
     }
   );
-  // await getAPI(`/movie/640146//credits`, "&language=en-US").then((res) => {
-  //   console.log("external_ids", res);
+  // await getAPI(`/genre/movie/list`, "&language=en-US").then((res) => {
+  //   console.log("genregenregenre", res);
   // });
 };
 

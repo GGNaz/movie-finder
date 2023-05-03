@@ -9,24 +9,24 @@ import axios from "axios";
 import { popularMoviesStore } from "./Zustand/popularMoviesStore";
 import { shallow } from "zustand/shallow";
 import { trendingMoviesStore } from "./Zustand/trendingMoviesStore";
+import { genreStore } from "./Zustand/genreStore";
 function App() {
-  const { storePopularMovies, popularMovies } = popularMoviesStore(
+  const { storePopularMovies } = popularMoviesStore((state) => state, shallow);
+  const { storeTrendingMovies } = trendingMoviesStore(
     (state) => state,
     shallow
   );
-  const { storeTrendingMovies, trendingMovies } = trendingMoviesStore(
-    (state) => state,
-    shallow
-  );
-  console.log("trendingMovies", trendingMovies);
-  // let ahshdasd = [];
-  useState(() => {
-    trendingMovies?.length <= 0 && storeTrendingMovies();
-  }, [trendingMovies]);
+  const { storeGenre } = genreStore((state) => state, shallow);
+
+  const loadAppApi = () => {
+    storePopularMovies();
+    storeTrendingMovies();
+    storeGenre();
+  };
 
   useEffect(() => {
-    storePopularMovies();
-  }, [storePopularMovies]);
+    loadAppApi();
+  }, []);
   // console.log("asdasd", asdasd);
   return (
     <div className="h-screen ">

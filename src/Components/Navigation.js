@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import logo from "../Assets/netflixlogo.png";
+import logo1 from "../Assets/logo.png";
 import * as BiIcons from "react-icons/bs";
 import LoginModal from "./LoginModal";
 function Navigation() {
@@ -17,8 +18,8 @@ function Navigation() {
       {openModal && showModal()}
       <div className="flex flex-row w-full justify-between items-center z-40 h-20">
         <div className="flex flex-row justify-center gap-4 text-white items-center cursor-pointer">
-          <img src={logo} className="h-16 " alt="logo" />
-
+          <img src={logo} className="h-16 md:flex hidden " alt="logo" />
+          <img src={logo1} className="h-16 flex md:hidden " alt="logo1" />
           <div
             onClick={() => navigate("/")}
             className={`${
