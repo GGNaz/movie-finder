@@ -165,7 +165,7 @@ function LandingPage() {
     >
       <img
         src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${movies[number]?.backdrop_path}`}
-        className={`absolute top-0 left-0 -z-10 h-[70vh] md:h-full w-full bg-cover`}
+        className={`absolute top-0 left-0 -z-10 h-[70vh] md:h-full w-full bg-cover `}
         alt="bgcover"
       />
 
@@ -188,6 +188,7 @@ function LandingPage() {
                     <div className="text-white/80  font-extrabold text-5xl md:text-6xl h-full md:h-[20vh]">
                       {movies[number]?.title}
                     </div>
+
                     <div className="text-white/90 flex flex-row gap-5">
                       Release Date:{" "}
                       <span className="text-customGray">
@@ -198,16 +199,27 @@ function LandingPage() {
                         <span>{movies[number]?.vote_average?.toFixed(2)}</span>
                       </div>
                     </div>
-                    {/* <div className="flex flex-col gap-1">
-                      <div className="text-white/80">Cast</div>
-                      <div className="flex flex-row gap-1">
-                        {movies[0]?.cast
-                          ?.slice(0.3)
+
+                    <div className="flex flex-col gap-2 md:hidden ">
+                      <div className="text-white/80">Cast:</div>
+                      <div className="grid grid-cols-4 w-full ">
+                        {movies[number]?.cast
+                          ?.slice(0, 4)
                           ?.map(({ name, profile_path }) => {
-                            return <div className="text-white/80">{name}</div>;
+                            return (
+                              <div className="flex flex-col items-center justify-center transform hover:scale-110 origin-center transition duration-300 ease-in-out cursor-pointer">
+                                <img
+                                  src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${profile_path}`}
+                                  className="h-12 w-12 rounded-full"
+                                />
+                                <div className="text-white/80 text-xs">
+                                  {name}
+                                </div>
+                              </div>
+                            );
                           })}
                       </div>
-                    </div> */}
+                    </div>
                     <div className="flex flex-row gap-3 h-[6vh] md:h-fit">
                       <button
                         className="flex flex-row  w-full md:w-fit items-center px-5 py-1 text-white rounded-lg bg-customRed hover:bg-customRed/80"
@@ -230,19 +242,21 @@ function LandingPage() {
               <div className="text-white/90 font-medium text-lg">
                 Continue watching
               </div>
-              <div className="flex flex-row gap-5 items-center h-[30vh] overflow-hidden ">
+              <div className="flex flex-row gap-2 lg:gap-5 items-center h-[25vh] lg:h-[30vh] overflow-hidden ">
                 {movies.map(({ poster_path, id }, index) => (
-                  <div key={id} className=" h-full w-full">
+                  <div key={id} className=" h-full w-full  ">
                     <img
                       src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
                       alt={poster_path}
-                      className="h-full w-full rounded-md shadow-sm "
+                      className="h-full w-full rounded-md shadow-sm transform hover:scale-110 origin-center transition duration-300 ease-in-out cursor-pointer"
                       // className={`w-full ${
                       //   index !== number
                       //     ? "h-28 w-28 md:w-80"
                       //     : "h-40 w-40 md:w-96 "
                       // }  hover:transition duration-700 ease-in-out`}
                     />
+
+                    {/* <div className="group/edit hover:bg-customBlack/50 h-full  w-full absolute top-0 left-0 z-10" /> */}
                   </div>
                 ))}
               </div>

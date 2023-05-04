@@ -19,7 +19,7 @@ const getAllPopularMovies = async (set) => {
           (castres) => {
             const params = {
               ...response,
-              cast: { ...castres.data.cast },
+              cast: castres.data.cast,
             };
             storeMovies.push(params);
           }

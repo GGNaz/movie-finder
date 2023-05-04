@@ -258,7 +258,12 @@ function MovieList() {
   };
 
   return (
-    <div className="flex flex-col w-full bg-customBlack pb-5">
+    <div className="flex flex-col w-full  pb-5 ">
+      {/* <img
+        alt="netflixbg"
+        className="absolute top-0 left-0 -z-50 blur-sm h-screen w-full"
+        src="https://assets.nflxext.com/ffe/siteui/vlv3/efb4855d-e702-43e5-9997-bba0154152e0/d583cb90-3cfe-4469-a6ef-6d9e13c31f77/PH-en-20230417-popsignuptwoweeks-perspective_alpha_website_small.jpg"
+      /> */}
       <Navigation />
       <div className=" p-5 flex flex-col gap-3">
         {!openMovie.isOpen ? (
