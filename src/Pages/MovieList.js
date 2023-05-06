@@ -11,21 +11,37 @@ import VideoPlayer from "./VideoPlayer";
 import { popularMoviesStore } from "../Zustand/popularMoviesStore";
 import { shallow } from "zustand/shallow";
 import { trendingMoviesStore } from "../Zustand/trendingMoviesStore";
+import { genreStore } from "../Zustand/genreStore";
+import { getAPI } from "../API/apiRoutes";
 function MovieList() {
   // const [popularList, setPopularMovies] = useState([]);
-  const [upcomingList, setUpcomingMovies] = useState([]);
+  const [selectedGenre, setSelectedGenre] = useState("select");
+
   const [ifPlayerOpen, setIfPlayerOpen] = useState(false);
+  const [filter, setFilter] = useState([]);
   const [openMovie, setOpenMovie] = useState({
     isOpen: false,
     movieDetails: {},
   });
   const { popularMovies } = popularMoviesStore((state) => state, shallow);
   const { trendingMovies } = trendingMoviesStore((state) => state, shallow);
-  const apiKey = "0d063d7aed88ac0312c521da1b31e63f";
+  const { genre } = genreStore((state) => state, shallow);
+  console.log("genregenregenregenre", genre);
   // const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&append_to_response=videos`;
   // const apiGetTrailers = `https://api.themoviedb.org/3/trending/all/week?api_key=${apiKey}&language=en-US&page=1`;
   const [action, setAction] = useState({ type: "default", response: [] });
-  console.log("action", action);
+  console.log("filter", filter);
+
+  const storeFiltersData = (index, type, value) => {
+    let copyFilter = [...filter];
+    if (value !== "") {
+      copyFilter.push(`${type}${value}`);
+    } else {
+      copyFilter.splice(0, index);
+    }
+
+    setFilter(copyFilter);
+  };
 
   const getSelectedMovie = (details) => {
     // setIfPlayerOpen(true);
@@ -193,22 +209,22 @@ function MovieList() {
     );
   };
 
-  const searchSpecificMovie = async (value) => {
-    if (value === "") {
-      setAction({ type: "default", response: [] });
-    } else {
-      await axios
-        .get(
-          `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${value}    `
-        )
-        .then(({ data, status }) => {
-          console.log("search", data);
-          if (status === 200) {
-            setAction({ type: "search", response: data?.results ?? [] });
-          }
-        });
-    }
-  };
+  // const searchSpecificMovie = async (value) => {
+  //   if (value === "") {
+  //     setAction({ type: "default", response: [] });
+  //   } else {
+  //     await axios
+  //       .get(
+  //         `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${value}    `
+  //       )
+  //       .then(({ data, status }) => {
+  //         console.log("search", data);
+  //         if (status === 200) {
+  //           setAction({ type: "search", response: data?.results ?? [] });
+  //         }
+  //       });
+  //   }
+  // };
 
   const defaultList = () => {
     return (
@@ -218,62 +234,104 @@ function MovieList() {
       </div>
     );
   };
-  const genreLayout = () => {
-    const genres = [
-      {
-        label: "All",
-      },
-      {
-        label: "Action",
-      },
-      {
-        label: "Animation",
-      },
-      {
-        label: "Fantasy",
-      },
-      {
-        label: "Romance",
-      },
-      {
-        label: "Horror",
-      },
+
+  const filterSectionLayout = () => {
+    const sortByList = [
+      { value: "popularity.asc", label: "Popularity" },
+      { value: "release_date.asc", label: "Date released" },
+      { value: "vote_average.gte=7", label: "Rating" },
     ];
     return (
-      <div className="flex flex-col gap-1">
-        <div className="text-lg font-medium text-white">Genre</div>
-        <div className="flex flex-row gap-5 justify-evenly text-white">
-          {genres.map(({ label }) => {
-            return (
-              <div className="w-full">
-                <button className="p-2 w-full rounded-md bg-white/70 text-customBlack">
-                  {label}
-                </button>
-              </div>
-            );
-          })}
+      <div className="bg-customGray/60 rounded-md p-2">
+        <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1">
+            <div>Filters</div>
+          </div>
+          <div className="flex flex-col gap-1">
+            <select
+              className="focus:outline-none border border-customBlack rounded-lg text-sm h-9 cursor-pointer"
+              // value={selectedGenre}
+              name="with_genres"
+              onChange={(e) => {
+                // setSelectedGenre(e.target.value);
+                storeFiltersData(1, "&with_genres=", e.target.value);
+              }}
+            >
+              <option value="">Select genre</option>
+              {genre.map(({ name, id }) => {
+                return (
+                  <option
+                    key={id}
+                    value={id}
+                    // className="border w-fit border-customBlack rounded-lg text-sm px-2"
+                  >
+                    {name}
+                  </option>
+                );
+              })}
+            </select>
+            <select
+              className="focus:outline-none border border-customBlack rounded-lg text-sm h-9 cursor-pointer"
+              // value={selectedGenre}
+              // name="with_genres"
+              onChange={(e) => {
+                // setSelectedGenre(e.target.value);
+                storeFiltersData(2, "&sort_by=", e.target.value);
+              }}
+            >
+              <option value="">Sort by</option>
+              {sortByList.map(({ value, label }) => (
+                <option value={value}>{label}</option>
+              ))}
+            </select>
+
+            {/* <input
+              type="text"
+              placeholder="eg. action"
+              className="h-9 focus:outline-none border rounded-md text-sm"
+            /> */}
+          </div>
+          <div className="flex flex-row gap-2">
+            <button
+              className="bg-blue-400 p-1 cursor-pointer w-full rounded-lg text-center text-customBlack"
+              onClick={() => performFilter()}
+            >
+              Filter
+            </button>
+            <button
+              className="bg-red-400 p-1 cursor-pointer w-full rounded-lg text-center text-customBlack"
+              // onClick={() => performFilter()}
+            >
+              Clear
+            </button>
+          </div>
         </div>
       </div>
     );
   };
 
+  const performFilter = async () => {
+    // console.log("concatFilter", filter.join(""));
+    await getAPI(`/discover/movie`, "&with_original_language=tl").then(
+      (res) => {
+        console.log("performFilter", res);
+      }
+    );
+  };
+
   return (
-    <div className="flex flex-col w-full  pb-5 ">
-      {/* <img
-        alt="netflixbg"
-        className="absolute top-0 left-0 -z-50 blur-sm h-screen w-full"
-        src="https://assets.nflxext.com/ffe/siteui/vlv3/efb4855d-e702-43e5-9997-bba0154152e0/d583cb90-3cfe-4469-a6ef-6d9e13c31f77/PH-en-20230417-popsignuptwoweeks-perspective_alpha_website_small.jpg"
-      /> */}
+    <div className="flex flex-col w-full  pb-5 bg-customBlack">
       <Navigation />
       <div className=" p-5 flex flex-col gap-3">
         {!openMovie.isOpen ? (
           <div className="flex flex-row gap-2">
             <div className="basis-3/4 flex flex-col gap-6">
-              {genreLayout()}
+              {/* {genreLayout()} */}
               {actionChecker()}
             </div>
             {!ifPlayerOpen && (
-              <div className="basis-1/4 border-l border-gray-600 px-2">
+              <div className="basis-1/4 flex flex-col gap-2 border-l border-gray-600 px-2">
+                {filterSectionLayout()}
                 {trendingMoviesLayout()}
               </div>
             )}

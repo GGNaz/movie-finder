@@ -7,10 +7,10 @@ const genreObj = {
 
 const getAllgenre = async (set) => {
   await getAPI(`/genre/movie/list`, "&language=en-US").then(({ data }) => {
+    console.log("getAllgenre", data);
     return set({
       genre: data.genres,
     });
-    // console.log("getAllgenre", res);
   });
 };
 

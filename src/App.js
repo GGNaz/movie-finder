@@ -10,8 +10,11 @@ import { popularMoviesStore } from "./Zustand/popularMoviesStore";
 import { shallow } from "zustand/shallow";
 import { trendingMoviesStore } from "./Zustand/trendingMoviesStore";
 import { genreStore } from "./Zustand/genreStore";
+import { countryStore } from "./Zustand/countryStore";
 function App() {
   const { storePopularMovies } = popularMoviesStore((state) => state, shallow);
+  const { storecountry } = countryStore((state) => state, shallow);
+
   const { storeTrendingMovies } = trendingMoviesStore(
     (state) => state,
     shallow
@@ -22,6 +25,7 @@ function App() {
     storePopularMovies();
     storeTrendingMovies();
     storeGenre();
+    storecountry();
   };
 
   useEffect(() => {
