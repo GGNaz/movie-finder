@@ -13,6 +13,9 @@ import { shallow } from "zustand/shallow";
 import { trendingMoviesStore } from "../Zustand/trendingMoviesStore";
 import { genreStore } from "../Zustand/genreStore";
 import { getAPI } from "../API/apiRoutes";
+import { upcomingMoviesStore } from "../Zustand/newMoviesStore";
+import moment from "moment";
+import logo from "../Assets/logo.png";
 function MovieList() {
   // const [popularList, setPopularMovies] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("select");
@@ -25,8 +28,10 @@ function MovieList() {
   });
   const { popularMovies } = popularMoviesStore((state) => state, shallow);
   const { trendingMovies } = trendingMoviesStore((state) => state, shallow);
+  const { upcomingMovies } = upcomingMoviesStore((state) => state, shallow);
   const { genre } = genreStore((state) => state, shallow);
-  console.log("genregenregenregenre", genre);
+  const [search, setSearch] = useState("");
+  console.log("search", search);
   // const apiUrl = `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&append_to_response=videos`;
   // const apiGetTrailers = `https://api.themoviedb.org/3/trending/all/week?api_key=${apiKey}&language=en-US&page=1`;
   const [action, setAction] = useState({ type: "default", response: [] });
@@ -66,6 +71,7 @@ function MovieList() {
             setIfPlayerOpen={setIfPlayerOpen}
           />
         );
+
       // return <div>asdasd</div>;
     }
   };
@@ -139,6 +145,10 @@ function MovieList() {
                     controls
                     light
                   /> */}
+                  <div className="absolute bottom-0 inset-0 bg-gradient-to-br from-customBlack/80 via-customBlack/20 to-customBlack/5" />
+                  <div className="absolute top-2 left-2">
+                    <img src={logo} alt={original_title} className="h-16" />
+                  </div>
                   <img
                     src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
                     className="h-full "
@@ -180,27 +190,37 @@ function MovieList() {
     return (
       <div className="flex flex-col gap-2 ">
         <div className="flex flex-row justify-between items-center">
-          <div className="text-white text-lg font-medium">New Movies</div>
+          <div className="text-white text-lg font-medium">Upcoming Movies</div>
           <button className="text-white text-sm flex flex-row gap-1 items-center ">
             <span>All Movies</span> <BiIcons.BsChevronRight />
           </button>
         </div>
 
         <div className="grid grid-cols-2 w-full gap-3">
-          {trendingMoviess.map((data, index) => {
-            const { title, url } = data ?? {};
+          {upcomingMovies?.slice(0, 2).map((data) => {
+            const { backdrop_path, title, id, release_date, popularity } =
+              data ?? {};
             return (
-              <div className=" flex flex-col gap-1" key={index}>
-                <div className="h-full min-h-[40vh]">
-                  <ReactPlayer
-                    width="100%"
-                    height="100%"
-                    url={url}
-                    controls
-                    light
+              <div className=" flex flex-col gap-1 cursor-pointer" key={id}>
+                <div className="h-full relative">
+                  <div className="absolute top-2 left-2">
+                    <img src={logo} alt={title} className="h-16" />
+                  </div>
+                  <img
+                    src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${backdrop_path}`}
+                    alt={title}
+                    // className="h-20 w-full rounded-r-lg"
                   />
+                  <div className="absolute bottom-0 inset-0 bg-gradient-to-t from-customBlack/80 via-customBlack/50 to-customBlack/5" />
+                  <div className="flex flex-col  absolute bottom-2 left-2 z-10">
+                    <div className="font-medium text-2xl text-white/80">
+                      {title}
+                    </div>
+                    <div className="text-xs text-white/70">
+                      Release date: {moment(release_date).format("LL")}
+                    </div>
+                  </div>
                 </div>
-                <div className="font-medium text-sm text-white">{title}</div>
               </div>
             );
           })}
@@ -209,22 +229,23 @@ function MovieList() {
     );
   };
 
-  // const searchSpecificMovie = async (value) => {
-  //   if (value === "") {
-  //     setAction({ type: "default", response: [] });
-  //   } else {
-  //     await axios
-  //       .get(
-  //         `https://api.themoviedb.org/3/search/movie?api_key=${apiKey}&query=${value}    `
-  //       )
-  //       .then(({ data, status }) => {
-  //         console.log("search", data);
-  //         if (status === 200) {
-  //           setAction({ type: "search", response: data?.results ?? [] });
-  //         }
-  //       });
-  //   }
-  // };
+  useEffect(() => {
+    const searchSpecificMovie = async () => {
+      if (search === "") {
+        setAction({ type: "default", response: [] });
+      } else {
+        await getAPI("/search/movie", `&query=${search}`).then(
+          ({ data, status }) => {
+            console.log("search", data);
+            if (status === 200) {
+              setAction({ type: "search", response: data?.results ?? [] });
+            }
+          }
+        );
+      }
+    };
+    searchSpecificMovie();
+  }, [search]);
 
   const defaultList = () => {
     return (
@@ -240,6 +261,37 @@ function MovieList() {
       { value: "popularity.asc", label: "Popularity" },
       { value: "release_date.asc", label: "Date released" },
       { value: "vote_average.gte=7", label: "Rating" },
+    ];
+
+    const soryByCountry = [
+      {
+        value: "zh",
+        label: "Chinese",
+      },
+      {
+        value: "en",
+        label: "English",
+      },
+      {
+        value: "id",
+        label: "Indonesia",
+      },
+      {
+        value: "ja",
+        label: "Japanese",
+      },
+      {
+        value: "ko",
+        label: "Korea",
+      },
+      {
+        value: "fil",
+        label: "Philippines",
+      },
+      {
+        value: "ru",
+        label: "Russia",
+      },
     ];
     return (
       <div className="bg-customGray/60 rounded-md p-2">
@@ -270,20 +322,40 @@ function MovieList() {
                 );
               })}
             </select>
-            <select
-              className="focus:outline-none border border-customBlack rounded-lg text-sm h-9 cursor-pointer"
-              // value={selectedGenre}
-              // name="with_genres"
-              onChange={(e) => {
-                // setSelectedGenre(e.target.value);
-                storeFiltersData(2, "&sort_by=", e.target.value);
-              }}
-            >
-              <option value="">Sort by</option>
-              {sortByList.map(({ value, label }) => (
-                <option value={value}>{label}</option>
-              ))}
-            </select>
+            <div className="flex flex-row gap-1 w-full">
+              <select
+                className="focus:outline-none w-full border border-customBlack rounded-lg text-sm h-9 cursor-pointer"
+                // value={selectedGenre}
+                // name="with_genres"
+                onChange={(e) => {
+                  // setSelectedGenre(e.target.value);
+                  storeFiltersData(2, "&sort_by=", e.target.value);
+                }}
+              >
+                <option value="">Sort by</option>
+                {sortByList.map(({ value, label }) => (
+                  <option value={value}>{label}</option>
+                ))}
+              </select>
+              <select
+                className="focus:outline-none w-full border border-customBlack rounded-lg text-sm h-9 cursor-pointer"
+                // value={selectedGenre}
+                // name="with_genres"
+                onChange={(e) => {
+                  // setSelectedGenre(e.target.value);
+                  storeFiltersData(
+                    3,
+                    "&with_original_language=",
+                    e.target.value
+                  );
+                }}
+              >
+                <option value="">Select country</option>
+                {soryByCountry.map(({ value, label }) => (
+                  <option value={value}>{label}</option>
+                ))}
+              </select>
+            </div>
 
             {/* <input
               type="text"
@@ -291,7 +363,7 @@ function MovieList() {
               className="h-9 focus:outline-none border rounded-md text-sm"
             /> */}
           </div>
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row gap-1 pt-2">
             <button
               className="bg-blue-400 p-1 cursor-pointer w-full rounded-lg text-center text-customBlack"
               onClick={() => performFilter()}
@@ -300,7 +372,7 @@ function MovieList() {
             </button>
             <button
               className="bg-red-400 p-1 cursor-pointer w-full rounded-lg text-center text-customBlack"
-              // onClick={() => performFilter()}
+              onClick={() => setAction({ type: "default", response: [] })}
             >
               Clear
             </button>
@@ -312,16 +384,19 @@ function MovieList() {
 
   const performFilter = async () => {
     // console.log("concatFilter", filter.join(""));
-    await getAPI(`/discover/movie`, "&with_original_language=tl").then(
-      (res) => {
-        console.log("performFilter", res);
-      }
-    );
+    if (filter?.length > 0) {
+      await getAPI(`/discover/movie`, filter?.join("")).then(
+        ({ data, status }) => {
+          if (status === 200)
+            return setAction({ type: "search", response: data?.results ?? [] });
+        }
+      );
+    }
   };
 
   return (
     <div className="flex flex-col w-full  pb-5 bg-customBlack">
-      <Navigation />
+      <Navigation setSearch={setSearch} />
       <div className=" p-5 flex flex-col gap-3">
         {!openMovie.isOpen ? (
           <div className="flex flex-row gap-2">

@@ -11,6 +11,8 @@ import { shallow } from "zustand/shallow";
 import { trendingMoviesStore } from "./Zustand/trendingMoviesStore";
 import { genreStore } from "./Zustand/genreStore";
 import { countryStore } from "./Zustand/countryStore";
+import { upcomingMoviesStore } from "./Zustand/newMoviesStore";
+
 function App() {
   const { storePopularMovies } = popularMoviesStore((state) => state, shallow);
   const { storecountry } = countryStore((state) => state, shallow);
@@ -20,12 +22,16 @@ function App() {
     shallow
   );
   const { storeGenre } = genreStore((state) => state, shallow);
-
+  const { storeupcomingMovies } = upcomingMoviesStore(
+    (state) => state,
+    shallow
+  );
   const loadAppApi = () => {
     storePopularMovies();
     storeTrendingMovies();
     storeGenre();
     storecountry();
+    storeupcomingMovies();
   };
 
   useEffect(() => {

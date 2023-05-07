@@ -4,13 +4,18 @@ import logo from "../Assets/netflixlogo.png";
 import logo1 from "../Assets/logo.png";
 import * as BiIcons from "react-icons/bs";
 import LoginModal from "./LoginModal";
-function Navigation() {
+function Navigation({ setSearch }) {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const [searchClicked, setSearchClicked] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+
   const showModal = () => {
     return <LoginModal setOpenModal={setOpenModal} />;
+  };
+
+  const submitSearch = () => {
+    // return searchSpecificMovie(search);
   };
 
   return (
@@ -44,11 +49,14 @@ function Navigation() {
               onClick={() => setSearchClicked(!searchClicked)}
             />
             {searchClicked && (
-              <input
-                type="text"
-                className="text-sm focus:outline-none w-40 bg-transparent text-white animate__animated animate__lightSpeedInRight "
-                placeholder="SEARCH"
-              />
+              <form onSubmit={submitSearch()}>
+                <input
+                  type="text"
+                  className="text-sm focus:outline-none w-40 bg-transparent text-white animate__animated animate__lightSpeedInRight "
+                  placeholder="SEARCH"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+              </form>
             )}
           </div>
           <button
