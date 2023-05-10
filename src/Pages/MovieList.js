@@ -77,6 +77,14 @@ function MovieList() {
   };
 
   const trendingMoviesLayout = () => {
+    console.log("trendingMovies", trendingMovies);
+    function convertNumber(number) {
+      if (number >= 1000) {
+        return number / 1000 + "k";
+      } else {
+        return number.toString();
+      }
+    }
     return (
       <div className="flex flex-col gap-2">
         <div className="text-white text-lg font-medium ">Today's Trending</div>
@@ -86,29 +94,41 @@ function MovieList() {
               title,
               release_date,
               original_name,
-              backdrop_path,
+              poster_path,
               vote_average,
               id,
+              popularity,
             } = data;
             return (
               <div
-                className="flex flex-row w-full  rounded-lg relative "
+                className="flex flex-row bg-customGray/60 hover:bg-white/50 cursor-pointer "
                 key={id}
+                onClick={() => getSelectedMovie(data)}
               >
-                <div className=" text-white rounded-l-lg text-xl  bg-customRed/80 w-20 flex justify-center items-center font-semibold">
-                  {index + 1}
-                </div>
-                <div className="relative w-full">
-                  <img
-                    src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${backdrop_path}`}
-                    alt={title}
-                    className="h-20 w-full rounded-r-lg"
-                  />
-                  <div className="absolute bottom-1 left-2 text-white/70 z-20 text-sm ">
+                <img
+                  src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
+                  alt={title}
+                  className="h-24 p-1"
+                />
+
+                <div className="flex flex-col gap-1 w-full p-1 justify-between">
+                  <div className="text-sm text-white/80">
+                    {" "}
                     {title ?? original_name}
                   </div>
+                  <div className="flex flex-row justify-between text-xs text-white">
+                    <div className="flex flex-row gap-1">
+                      {" "}
+                      <BiIcons.BsFillStarFill />
+                      {vote_average?.toFixed(2)}
+                    </div>
+                    <div className="flex flex-row gap-1">
+                      {" "}
+                      <BiIcons.BsFillEyeFill />
+                      {convertNumber(popularity?.toFixed(0))}
+                    </div>
+                  </div>
                 </div>
-                <div className="absolute bottom-0 inset-0 bg-gradient-to-t from-customBlack/80 via-customBlack/50 to-customBlack/5" />
               </div>
             );
           })}
@@ -116,6 +136,26 @@ function MovieList() {
       </div>
     );
   };
+
+  // <div
+  //   className="flex flex-row w-full  rounded-lg relative "
+  //   key={id}
+  // >
+  //   <div className=" text-white rounded-l-lg text-xl  bg-customRed/80 w-20 flex justify-center items-center font-semibold">
+  //     {index + 1}
+  //   </div>
+  //   <div className="relative w-full">
+  //     <img
+  //       src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${backdrop_path}`}
+  //       alt={title}
+  //       className="h-20 w-full rounded-r-lg"
+  //     />
+  //     <div className="absolute bottom-1 left-2 text-white/70 z-20 text-sm ">
+  //       {title ?? original_name}
+  //     </div>
+  //   </div>
+  //   <div className="absolute bottom-0 inset-0 bg-gradient-to-t from-customBlack/80 via-customBlack/50 to-customBlack/5" />
+  // </div>
 
   const popularMoviesLayout = () => {
     return (
@@ -134,7 +174,7 @@ function MovieList() {
             return (
               <div
                 className=" flex flex-col gap-1 h-full min-h-[20vh] cursor-pointer"
-                key={index}
+                key={id}
                 onClick={() => getSelectedMovie(data)}
               >
                 <div className="h-full min-h-[20vh] flex flex-col relative ">
@@ -166,7 +206,7 @@ function MovieList() {
                   </div>
                 </div>
                 <div className="font-light text-xs text-white h-[5vh]">
-                  {original_title} ({release_date.split("-")[0]})
+                  {original_title} ({release_date?.split("-")[0]})
                 </div>
               </div>
             );
@@ -201,7 +241,11 @@ function MovieList() {
             const { backdrop_path, title, id, release_date, popularity } =
               data ?? {};
             return (
-              <div className=" flex flex-col gap-1 cursor-pointer" key={id}>
+              <div
+                className=" flex flex-col gap-1 cursor-pointer"
+                key={id}
+                onClick={() => getSelectedMovie(data)}
+              >
                 <div className="h-full relative">
                   <div className="absolute top-2 left-2">
                     <img src={logo} alt={title} className="h-16" />
@@ -217,7 +261,7 @@ function MovieList() {
                       {title}
                     </div>
                     <div className="text-xs text-white/70">
-                      Release date: {moment(release_date).format("LL")}
+                      Release date: {moment(release_date)?.format("LL")}
                     </div>
                   </div>
                 </div>
@@ -276,6 +320,7 @@ function MovieList() {
         value: "id",
         label: "Indonesia",
       },
+
       {
         value: "ja",
         label: "Japanese",
@@ -285,7 +330,7 @@ function MovieList() {
         label: "Korea",
       },
       {
-        value: "fil",
+        value: "tl",
         label: "Philippines",
       },
       {
@@ -294,7 +339,7 @@ function MovieList() {
       },
     ];
     return (
-      <div className="bg-customGray/60 rounded-md p-2">
+      <div className="bg-customGray/60 p-2">
         <div className="flex flex-col gap-1">
           <div className="flex flex-col gap-1">
             <div>Filters</div>

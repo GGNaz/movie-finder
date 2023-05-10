@@ -6,6 +6,7 @@ import * as BiIcons from "react-icons/bs";
 import ReactPlayer from "react-player";
 
 import screenfull from "screenfull";
+import { getAPI } from "../API/apiRoutes";
 function VideoPlayer({ details, closeVideoPlayer }) {
   const {
     backdrop_path,
@@ -20,15 +21,11 @@ function VideoPlayer({ details, closeVideoPlayer }) {
   } = details ?? {};
   const [video, setVideo] = useState({ isOpen: false, data: {} });
   console.log("video", video);
-  const apiKey = "0d063d7aed88ac0312c521da1b31e63f";
+
   console.log("details", details);
   const playVideo = async () => {
-    await axios
-      .get(
-        `https://api.themoviedb.org/3/movie/${id}/videos?api_key=${apiKey}&language=en-US`
-      )
-      .then(({ data, status }) => {
-        console.log("resssss", data);
+    await getAPI(`/movie/${id}/videos`, `&language=en-US`).then(
+      ({ data, status }) => {
         if (status === 200) {
           setVideo({
             isOpen: true,
@@ -41,7 +38,8 @@ function VideoPlayer({ details, closeVideoPlayer }) {
           // return handleClickFullscreen();
           // handleFullScreenClick();
         }
-      });
+      }
+    );
   };
 
   const closeVideo = () => {
@@ -82,17 +80,17 @@ function VideoPlayer({ details, closeVideoPlayer }) {
         }`}
       >
         <div className=" flex w-full">
-          <div className="flex  relative justify-end w-full">
-            <div className="flex  w-full md:w-[90vw] lg:w-[80vw] relative">
+          <div className="flex  relative justify-end w-full  ">
+            <div className="flex  w-full md:w-[90vw] lg:w-[80vw] relative animate__animated animate__fadeInLeft">
               <img
                 src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${backdrop_path}`}
-                className="h-[40vh] md:h-screen z-20 w-full animate__animated animate__fadeInRight"
+                className="h-[40vh] md:h-screen z-20 w-full"
               />
               <div className="absolute  inset-0 bg-gradient-to-t md:bg-gradient-to-r from-customBlack via-customBlack/80 to-customBlack/5 w-full md:w-[10vw] z-20"></div>
             </div>
           </div>
         </div>
-        <div className="overflow-hidden animate__animated animate__fadeInLeft flex h-screen w-full bg-none md:bg-gradient-to-r from-customBlack via-customBlack/90 to-customBlack/5 absolute top-0 left-0 z-30">
+        <div className="overflow-hidden animate__animated animate__fadeInLeft animate__delay-0.999s flex h-screen w-full bg-none md:bg-gradient-to-r from-customBlack via-customBlack/90 to-customBlack/5 absolute top-0 left-0 z-30">
           <div className="p-10 flex flex-col gap-5 w-full md:w-basis-4/5 lg:basis-3/5">
             <div className="flex flex-col gap-20 md:gap-5">
               <div>
@@ -119,13 +117,13 @@ function VideoPlayer({ details, closeVideoPlayer }) {
                   </div>
                   <div className="flex flex-row gap-3">
                     <button
-                      className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customRed "
+                      className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customRed hover:bg-customRed/80"
                       onClick={() => playVideo()}
                     >
                       <BiIcons.BsPlayFill className="h-6 w-6" />
                       <span>Play</span>
                     </button>
-                    <button className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customGray">
+                    <button className="flex flex-row  items-center px-5 py-1 text-white rounded-lg bg-customGray hover:bg-customGray/80">
                       <BiIcons.BsPlus className="h-6 w-6" />
                       <span>Watch List</span>
                     </button>
@@ -138,7 +136,7 @@ function VideoPlayer({ details, closeVideoPlayer }) {
                 <div className="text-md text-white">Release Date</div>
                 <div className=" flex flex-row gap-1  text-customGray text-xl">
                   <BiIcons.BsCalendarMonthFill />
-                  <span>{moment(release_date).format("LL")}</span>
+                  <span>{moment(release_date)?.format("LL")}</span>
                 </div>
               </div>
 

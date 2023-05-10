@@ -1,20 +1,54 @@
-import React from "react";
+import React, { useState } from "react";
 import logo from "../Assets/netflixlogo.png";
 import { Player } from "@lottiefiles/react-lottie-player";
+import axios from "axios";
 
-function HOC() {
-  return (
-    <div className="h-screen flex justify-center items-center w-full bg-customBlack z-50 flex-col gap-1">
-      <img src={logo} alt="logo" className="h-[20vh] w-[40vw] md:w-[30vw] " />
-      <Player
-        src="https://assets6.lottiefiles.com/private_files/lf30_06kvvo5n.json"
-        loop
-        className="h-20 w-20"
-        autoplay
-        // key={id}
-      />
-    </div>
+const hocLoading = (WrappedComponent) => (props) => {
+  const [show, setShow] = useState(false);
+
+  axios.interceptors.request.use(
+    function (config) {
+      setShow(true);
+      return config;
+    },
+    function (error) {
+      setShow(false);
+      return Promise.reject(error);
+    }
   );
-}
 
-export default HOC;
+  axios.interceptors.response.use(
+    function (response) {
+      setShow(false);
+      return response;
+    },
+    function (error) {
+      setShow(false);
+      return Promise.reject(error);
+    }
+  );
+
+  return (
+    <>
+      {show ? (
+        <div className="h-screen absolute top-0 left-0 flex justify-center items-center w-full bg-customBlack z-50 flex-col gap-1">
+          <img
+            src={logo}
+            alt="logo"
+            className="h-[20vh] w-[40vw] md:w-[30vw] "
+          />
+          <Player
+            src="https://assets6.lottiefiles.com/private_files/lf30_06kvvo5n.json"
+            loop
+            className="h-20 w-20"
+            autoplay
+            // key={id}
+          />
+        </div>
+      ) : null}
+      <WrappedComponent {...props} className="absolute top-0 left-0 z-40" />
+    </>
+  );
+};
+
+export default hocLoading;

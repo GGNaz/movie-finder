@@ -12,6 +12,8 @@ import { trendingMoviesStore } from "./Zustand/trendingMoviesStore";
 import { genreStore } from "./Zustand/genreStore";
 import { countryStore } from "./Zustand/countryStore";
 import { upcomingMoviesStore } from "./Zustand/newMoviesStore";
+import { memo } from "react";
+import hocLoading from "./Components/HOC";
 
 function App() {
   const { storePopularMovies } = popularMoviesStore((state) => state, shallow);
@@ -39,7 +41,7 @@ function App() {
   }, []);
   // console.log("asdasd", asdasd);
   return (
-    <div className="h-screen ">
+    <div className="h-screen z-40">
       {/* {asdasd.slice(0, 5).map(({ poster_path }) => (
         <img
           src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
@@ -54,4 +56,4 @@ function App() {
   );
 }
 
-export default App;
+export default memo(hocLoading(App));
