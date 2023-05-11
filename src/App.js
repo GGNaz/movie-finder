@@ -39,15 +39,9 @@ function App() {
   useEffect(() => {
     loadAppApi();
   }, []);
-  // console.log("asdasd", asdasd);
+
   return (
-    <div className="h-screen z-40">
-      {/* {asdasd.slice(0, 5).map(({ poster_path }) => (
-        <img
-          src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
-          className="h-60"
-        />
-      ))} */}
+    <div className="h-screen ">
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/movies" element={<MovieList />}></Route>

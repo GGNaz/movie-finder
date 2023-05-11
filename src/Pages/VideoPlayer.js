@@ -7,6 +7,7 @@ import ReactPlayer from "react-player";
 
 import screenfull from "screenfull";
 import { getAPI } from "../API/apiRoutes";
+import { landscapeformat, portraitformat } from "../Assets/imagesformat";
 function VideoPlayer({ details, closeVideoPlayer }) {
   const {
     backdrop_path,
@@ -83,7 +84,7 @@ function VideoPlayer({ details, closeVideoPlayer }) {
           <div className="flex  relative justify-end w-full  ">
             <div className="flex  w-full md:w-[90vw] lg:w-[80vw] relative animate__animated animate__fadeInLeft">
               <img
-                src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${backdrop_path}`}
+                src={`${landscapeformat}${backdrop_path}`}
                 className="h-[40vh] md:h-screen z-20 w-full"
               />
               <div className="absolute  inset-0 bg-gradient-to-t md:bg-gradient-to-r from-customBlack via-customBlack/80 to-customBlack/5 w-full md:w-[10vw] z-20"></div>
@@ -105,7 +106,7 @@ function VideoPlayer({ details, closeVideoPlayer }) {
 
               <div className="flex flex-row gap-3">
                 <img
-                  src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
+                  src={`${portraitformat}${poster_path}`}
                   className="h-[50vh] hidden md:flex "
                 />
                 <div className="flex flex-col gap-6">

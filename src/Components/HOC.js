@@ -31,7 +31,7 @@ const hocLoading = (WrappedComponent) => (props) => {
   return (
     <>
       {show ? (
-        <div className="h-screen absolute top-0 left-0 flex justify-center items-center w-full bg-customBlack z-50 flex-col gap-1">
+        <div className="h-screen bg-cover absolute top-0 left-0 flex justify-center z-50 items-center w-full bg-customBlack flex-col gap-1">
           <img
             src={logo}
             alt="logo"
@@ -46,7 +46,8 @@ const hocLoading = (WrappedComponent) => (props) => {
           />
         </div>
       ) : null}
-      <WrappedComponent {...props} className="absolute top-0 left-0 z-40" />
+
+      <WrappedComponent {...props} />
     </>
   );
 };

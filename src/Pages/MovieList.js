@@ -16,6 +16,7 @@ import { getAPI } from "../API/apiRoutes";
 import { upcomingMoviesStore } from "../Zustand/newMoviesStore";
 import moment from "moment";
 import logo from "../Assets/logo.png";
+import { landscapeformat, portraitformat } from "../Assets/imagesformat";
 function MovieList() {
   // const [popularList, setPopularMovies] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("select");
@@ -106,7 +107,7 @@ function MovieList() {
                 onClick={() => getSelectedMovie(data)}
               >
                 <img
-                  src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`}
+                  src={`${portraitformat}${poster_path}`}
                   alt={title}
                   className="h-24 p-1"
                 />
@@ -251,7 +252,7 @@ function MovieList() {
                     <img src={logo} alt={title} className="h-16" />
                   </div>
                   <img
-                    src={`https://image.tmdb.org/t/p/w1920_and_h800_multi_faces${backdrop_path}`}
+                    src={`${landscapeformat}${backdrop_path}`}
                     alt={title}
                     // className="h-20 w-full rounded-r-lg"
                   />

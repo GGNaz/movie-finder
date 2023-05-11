@@ -1,6 +1,7 @@
 import { Player } from "@lottiefiles/react-lottie-player";
 import React, { useState } from "react";
 import VideoPlayer from "./VideoPlayer";
+import { portraitformat } from "../Assets/imagesformat";
 
 function SearchList({ reponse, setIfPlayerOpen }) {
   const [openMovie, setOpenMovie] = useState({
@@ -16,21 +17,21 @@ function SearchList({ reponse, setIfPlayerOpen }) {
     return setOpenMovie({ isOpen: false, movieDetails: {} });
   };
   return (
-    <div>
+    <div className="bg-customBlack ">
       {!openMovie.isOpen ? (
         <div className="flex flex-col gap-2 ">
           <div className="flex flex-row justify-between items-center">
             <div className="text-white text-lg font-medium">Results :</div>
           </div>
           {reponse?.length > 0 ? (
-            <div className="grid grid-cols-4 w-full  gap-3">
+            <div className="grid grid-cols-2 md:grid-cols-4 w-full  gap-3">
               {reponse.map((data, index) => {
                 const { poster_path, original_title, id, release_date } =
                   data ?? {};
                 return (
                   <div
                     className=" flex flex-col gap-1 h-full min-h-[20vh] cursor-pointer"
-                    key={index}
+                    key={id}
                     onClick={() => getSelectedMovie(data)}
                   >
                     <div className="h-full min-h-[20vh] flex flex-col relative ">
@@ -44,7 +45,7 @@ function SearchList({ reponse, setIfPlayerOpen }) {
                       <img
                         src={
                           poster_path
-                            ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${poster_path}`
+                            ? `${portraitformat}${poster_path}`
                             : "https://img.freepik.com/free-vector/funny-error-404-background-design_1167-219.jpg?w=2000"
                         }
                         className="h-full "
