@@ -17,6 +17,8 @@ import { upcomingMoviesStore } from "../Zustand/newMoviesStore";
 import moment from "moment";
 import logo from "../Assets/logo.png";
 import { landscapeformat, portraitformat } from "../Assets/imagesformat";
+import Slider from "react-slick";
+
 function MovieList() {
   // const [popularList, setPopularMovies] = useState([]);
   const [selectedGenre, setSelectedGenre] = useState("select");
@@ -159,6 +161,13 @@ function MovieList() {
   // </div>
 
   const popularMoviesLayout = () => {
+    const settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+    };
     return (
       <div className="flex flex-col gap-2 ">
         <div className="flex flex-row justify-between items-center">
@@ -446,12 +455,12 @@ function MovieList() {
       <div className=" p-5 flex flex-col gap-3">
         {!openMovie.isOpen ? (
           <div className="flex flex-row gap-2">
-            <div className="basis-3/4 flex flex-col gap-6">
+            <div className="md:basis-3/4 flex flex-col gap-6">
               {/* {genreLayout()} */}
               {actionChecker()}
             </div>
             {!ifPlayerOpen && (
-              <div className="basis-1/4 flex flex-col gap-2 border-l border-gray-600 px-2">
+              <div className="hidden basis-1/4  md:flex flex-col gap-2 border-l border-gray-600 px-2">
                 {filterSectionLayout()}
                 {trendingMoviesLayout()}
               </div>
