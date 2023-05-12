@@ -529,7 +529,7 @@ function MovieList() {
       showFilter
     );
     return (
-      <div className="flex flex-row justify-between items-center">
+      <div className="flex flex-row justify-between items-center md:hidden">
         <div className="text-white text-lg font-medium">Today's Trending</div>
         <div
           className={`${
