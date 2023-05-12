@@ -41,7 +41,7 @@ function App() {
   }, []);
 
   return (
-    <div className="h-screen ">
+    <div className="h-screen bg-customBlack">
       <Routes>
         <Route path="/" element={<LandingPage />}></Route>
         <Route path="/movies" element={<MovieList />}></Route>

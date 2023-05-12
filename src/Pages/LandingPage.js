@@ -69,7 +69,7 @@ function LandingPage() {
 
   const defaultLandingPage = () => {
     return (
-      <div className="flex h-screen w-full bg-gradient-to-tr from-customBlack via-customBlack/80 to-customBlack/5 absolute z-20">
+      <div className="flex h-screen w-full z-30 bg-gradient-to-tr from-customBlack via-customBlack/80 to-customBlack/5 absolute ">
         <div className="flex flex-col  w-full">
           <div className="flex fex-col h-screen p-5 z-20 md:z-0  relative items-end md:items-center">
             <div className="flex flex-col justify-start w-full md:basis-4/5 lg:basis-3/5">
@@ -188,7 +188,7 @@ function LandingPage() {
           {search === "" && movies[number]?.backdrop_path && (
             <img
               src={`${landscapeformat}${movies[number]?.backdrop_path}`}
-              className={`absolute top-0 left-0 -z-10 h-[70vh] md:h-full w-full bg-cover `}
+              className={`absolute top-0 left-0 z-20 h-[70vh] md:h-full w-full bg-cover `}
               alt="bgcover"
               loading="lazy"
             />
