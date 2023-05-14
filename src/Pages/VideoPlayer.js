@@ -96,7 +96,7 @@ function VideoPlayer({ details, closeVideoPlayer }) {
             <div className="flex flex-col gap-20 md:gap-5">
               <div>
                 <button
-                  className="flex flex-row gap-2 text-customGray hover:text-white items-center "
+                  className="flex flex-row gap-2 text-white items-center "
                   onClick={() => closeVideoPlayer()}
                 >
                   <BiIcons.BsArrowLeft />

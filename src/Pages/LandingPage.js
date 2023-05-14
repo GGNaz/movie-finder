@@ -19,7 +19,13 @@ function LandingPage() {
   const { movies } = popularMoviesStore((state) => state, shallow);
   const [search, setSearch] = useState("");
   const [ifPlayerOpen, setIfPlayerOpen] = useState(false);
-  const [action, setAction] = useState({ type: "default", response: [] });
+  const [action, setAction] = useState({
+    type: "default",
+    response: [],
+    apiRoute: null,
+    query: null,
+    title: null,
+  });
   const [number, setNumber] = useState(0);
   const [openMovie, setOpenMovie] = useState({
     isOpen: false,
@@ -55,11 +61,8 @@ function LandingPage() {
         return <div>popular</div>;
       case "search":
         return (
-          <div className="bg-customBlack pt-20 p-5 h-screen w-full">
-            <SearchList
-              reponse={action?.response}
-              setIfPlayerOpen={setIfPlayerOpen}
-            />
+          <div className="bg-customBlack pt-20 h-screen w-full">
+            <SearchList {...action} setIfPlayerOpen={setIfPlayerOpen} />
           </div>
         );
 
@@ -137,15 +140,22 @@ function LandingPage() {
               Top picks for you
             </div>
             <div className="flex flex-row gap-2 lg:gap-5 items-center h-[25vh] lg:h-[30vh] overflow-hidden ">
-              {movies.map(({ poster_path, id }, index) => (
-                <div key={id} className=" h-full w-full  ">
-                  <img
-                    src={`${portraitformat}${poster_path}`}
-                    alt={poster_path}
-                    className="h-full w-full rounded-md shadow-sm transform hover:scale-110 origin-center transition duration-300 ease-in-out cursor-pointer"
-                  />
-                </div>
-              ))}
+              {movies.map((data, index) => {
+                const { poster_path, id } = data ?? {};
+                return (
+                  <div
+                    key={id}
+                    className=" h-full w-full  "
+                    onClick={() => getSelectedMovie(data)}
+                  >
+                    <img
+                      src={`${portraitformat}${poster_path}`}
+                      alt={poster_path}
+                      className="h-full w-full rounded-md shadow-sm transform hover:scale-110 origin-center transition duration-300 ease-in-out cursor-pointer"
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
           <div className="absolute z-10 bottom-0 left-0 w-full h-[62vh] md:h-[35vh] blur-sm bg-gradient-to-t from-black via-black to-black/5" />
@@ -154,19 +164,21 @@ function LandingPage() {
     );
   };
 
+  const clearAction = () => {
+    setAction({ type: "default", title: null, apiRoute: null, query: null });
+  };
+
   useEffect(() => {
     const searchSpecificMovie = async () => {
       if (search === "") {
-        setAction({ type: "default", response: [] });
+        clearAction();
       } else {
-        await getAPI("/search/movie", `&query=${search}`).then(
-          ({ data, status }) => {
-            console.log("search", data);
-            if (status === 200) {
-              setAction({ type: "search", response: data?.results ?? [] });
-            }
-          }
-        );
+        const params = {
+          type: "search",
+          apiRoute: "/search/movie",
+          query: `&query=${search}`,
+        };
+        setAction(params);
       }
     };
     searchSpecificMovie();

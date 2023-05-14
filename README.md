@@ -72,3 +72,5 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/t
 # movie-finder
 
 API SOURCE - https://www.themoviedb.org/documentation/api
+
+API LIST - https://developers.themoviedb.org/3/movies/get-movie-details

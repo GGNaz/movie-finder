@@ -2,12 +2,35 @@ import { Player } from "@lottiefiles/react-lottie-player";
 import React, { useState } from "react";
 import VideoPlayer from "./VideoPlayer";
 import { portraitformat } from "../Assets/imagesformat";
+import * as BiIcons from "react-icons/bs";
+import { useEffect } from "react";
+import { getAPI } from "../API/apiRoutes";
 
-function SearchList({ reponse, setIfPlayerOpen }) {
+function SearchList({ apiRoute, title, query, setIfPlayerOpen }) {
   const [openMovie, setOpenMovie] = useState({
     isOpen: false,
     movieDetails: {},
   });
+  const [pageCounter, setPageCounter] = useState(1);
+  const [results, setResults] = useState([]);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
+  const handleScroll = () => {
+    const isTop = window.pageYOffset > 0;
+    setIsVisible(isTop);
+  };
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
   const getSelectedMovie = (details) => {
     setIfPlayerOpen(true);
     return setOpenMovie({ isOpen: true, movieDetails: details });
@@ -16,16 +39,51 @@ function SearchList({ reponse, setIfPlayerOpen }) {
     setIfPlayerOpen(false);
     return setOpenMovie({ isOpen: false, movieDetails: {} });
   };
+  useEffect(() => {
+    const pageNoApi = async () => {
+      if (pageCounter >= 1) {
+        await getAPI(apiRoute, `${query}&page=${pageCounter}`).then(
+          ({ data, status }) => {
+            if (status === 200) {
+              setResults(data?.results ?? []);
+            }
+          }
+        );
+      }
+    };
+    console.log(
+      "🚀 ~ file: SearchList.js:38 ~ pageNoApi ~ pageNoApi:",
+      pageNoApi
+    );
+    pageNoApi();
+  }, [pageCounter, apiRoute, query]);
+
+  const incrementPageNo = () => {
+    if (pageCounter >= 1) {
+      setPageCounter((prev) => prev + 1);
+      return scrollToTop();
+    }
+  };
+
+  const decrementPageNo = () => {
+    if (pageCounter > 1) {
+      setPageCounter((prev) => prev - 1);
+      return scrollToTop();
+    }
+  };
+
   return (
-    <div className="bg-customBlack ">
+    <div className="bg-customBlack px-5">
       {!openMovie.isOpen ? (
         <div className="flex flex-col gap-2 ">
           <div className="flex flex-row justify-between items-center">
-            <div className="text-white text-lg font-medium">Results :</div>
+            <div className="text-white text-lg font-medium">
+              {title ?? "Results :"}
+            </div>
           </div>
-          {reponse?.length > 0 ? (
+          {results?.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-4 w-full  gap-3">
-              {reponse.map((data, index) => {
+              {results.map((data, index) => {
                 const { poster_path, original_title, id, release_date } =
                   data ?? {};
                 return (
@@ -84,6 +142,22 @@ function SearchList({ reponse, setIfPlayerOpen }) {
               </div>
             </div>
           )}
+          <div className="flex flex-col gap-1 justify-center items-center pt-2">
+            <div className="text-xs text-white/80">Pages</div>
+            <div className="flex flex-row gap-1  items-center">
+              <BiIcons.BsCaretLeft
+                className="hover:text-customYellow text-white/80 cursor-pointer text-lg"
+                onClick={() => decrementPageNo()}
+              />{" "}
+              <span className="px-2 bg-white text-customBlack font-semibold rounded-md ">
+                {pageCounter}
+              </span>{" "}
+              <BiIcons.BsCaretRight
+                className="hover:text-customYellow text-white/80 cursor-pointer text-lg"
+                onClick={() => incrementPageNo()}
+              />
+            </div>
+          </div>
         </div>
       ) : (
         <VideoPlayer
